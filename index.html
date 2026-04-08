@@ -143,7 +143,74 @@ border:1px solid #ddd;
 </section>
 
 <script>
-function generate(){
+
+  function show(type){
+let content=document.getElementById("content");
+
+if(type=="date"){
+content.innerHTML=`
+<div class="card">
+<img src="picnicdate.jpeg">
+<div class="overlay">Picnic Date</div>
+</div>
+
+<div class="card">
+<img src="beachdate.jpeg">
+<div class="overlay">Beach Date</div>
+</div>
+
+<div class="card">
+<img src="romanticdinner.jpeg">
+<div class="overlay">Romantic Dinner</div>
+</div>
+
+`;
+}
+
+if(type=="gift"){
+content.innerHTML = `
+
+<div class="card">
+<img src="scrapbookorsc.jpeg">
+<div class="overlay">Scrapbook</div>
+</div>
+
+<div class="card">
+<img src="watch.jpg">
+<div class="overlay">Watch</div>
+</div>
+
+<div class="card">
+<img src="jewelry.jpg">
+<div class="overlay">Jewelry</div>
+</div>
+
+`;
+}
+if(type=="surprise"){
+content.innerHTML = `
+
+<div class="card">
+<img src="scavengerhunt.jpg">
+<div class="overlay">Scavenger Hunt</div>
+</div>
+
+<div class="card">
+<img src="stargazing.jpg">
+<div class="overlay">Stargazing Trip</div>
+</div>
+
+<div class="card">
+<img src="recreatefirstdate.jpg">
+<div class="overlay">Recreate First Date</div>
+</div>
+
+`;
+}
+
+content.classList.add("show");
+}
+  function generate(){
 
 let name=document.getElementById("name").value;
 let partner=document.getElementById("partner").value;
@@ -196,7 +263,7 @@ ${idea}
 Mohon bantu rekomendasi terbaik ya 😊
 Terima kasih 🙏`;
 
-let link="https://api.whatsapp.com/send?phone=6289524070718&text="+encodeURIComponent(message);
+let link = "https://api.whatsapp.com/send?phone=6289524070718&text=" + encodeURIComponent(message);
 
 window.open(link, "_blank");
 }
