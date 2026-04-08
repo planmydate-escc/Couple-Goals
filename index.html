@@ -213,7 +213,7 @@ transform:translateY(0);
 <!-- NAVBAR -->
 <nav>
 <div class="logo">
-<img src="logo.jpeg">
+<img src="https://raw.githubusercontent.com/USERNAME/REPO/main/logo.jpeg">
 <h2>Couple Goals</h2>
 </div>
 
@@ -315,7 +315,7 @@ content.innerHTML=`
 
 if(type=="gift"){
 content.innerHTML=`
-<div class="card"><img src="scrapbookorsc.webp"><div class="overlay">Scrapbook</div></div>
+<div class="card"><img src="scrapbookorsc.jpe"><div class="overlay">Scrapbook</div></div>
 <div class="card"><img src="watch.jpg"><div class="overlay">Watch</div></div>
 <div class="card"><img src="jewelry.jpg"><div class="overlay">Jewelry</div></div>
 `;
@@ -324,7 +324,7 @@ content.innerHTML=`
 if(type=="surprise"){
 content.innerHTML=`
 <div class="card"><img src="scavengerhunt.jpg"><div class="overlay">Scavenger Hunt</div></div>
-<div class="card"><img src="stargazing.jpe"><div class="overlay">Stargazing Trip</div></div>
+<div class="card"><img src="stargazinghunt.jpe"><div class="overlay">Stargazing Trip</div></div>
 <div class="card"><img src="recreatefirstdate.jpg"><div class="overlay">Recreate First Date</div></div>
 `;
 }
@@ -382,10 +382,12 @@ Hobby: ${hobby}
 Budget: ${budget}
 
 Ide:
-${idea}`;
+${idea}
+`;
 
-let link="https://wa.me/6289524070718?text="+encodeURIComponent(message.trim());
-
+message = unescape(encodeURIComponent(message));
+let link="https://api.whatsapp.com/send?phone=6289524070718&text="+encodeURIComponent(message);
+  
 let wa=document.getElementById("waLink");
 wa.href=link;
 wa.style.display="block";
