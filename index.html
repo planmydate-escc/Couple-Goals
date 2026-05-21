@@ -1,272 +1,1297 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Couple Goals</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<title>Couple Goals — Plan Your Perfect Moment</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
 
 <style>
+
+:root{
+  --rose:#9B2040;
+  --rose-light:#C44569;
+  --rose-deep:#6B0F2A;
+  --rose-pale:#FFF0F3;
+
+  --cream:#FDFAF7;
+  --white:#FFFFFF;
+
+  --text:#1A1A1A;
+  --text-muted:#666;
+  --text-light:#999;
+
+  --border:rgba(155,32,64,0.12);
+
+  --shadow:0 10px 30px rgba(155,32,64,0.08);
+  --shadow-lg:0 18px 50px rgba(155,32,64,0.15);
+
+  --radius:18px;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
 body{
-margin:0;
-font-family:'Poppins','Segoe UI Emoji','Apple Color Emoji','Noto Color Emoji',sans-serif;
-background:#ffffff;
-color:#333;
+  font-family:'DM Sans',sans-serif;
+  background:var(--cream);
+  color:var(--text);
+  overflow-x:hidden;
 }
 
-/* NAVBAR */
+/* ================= NAV ================= */
+
 nav{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:15px 50px;
-border-bottom:1px solid #eee;
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  z-index:1000;
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  padding:18px 60px;
+
+  background:rgba(253,250,247,0.88);
+  backdrop-filter:blur(14px);
+
+  border-bottom:1px solid var(--border);
+
+  transition:0.3s;
 }
 
-.logo{
-display:flex;
-align-items:center;
-gap:10px;
+nav.scrolled{
+  padding:14px 60px;
 }
 
-.logo img{
-height:45px;
+.nav-logo{
+  font-family:'Cormorant Garamond',serif;
+  font-size:28px;
+  font-weight:600;
+
+  color:var(--rose);
+
+  text-decoration:none;
 }
 
-.logo h2{
-color:#c9184a;
-margin:0;
+.nav-logo span{
+  color:var(--text);
+  font-weight:400;
 }
 
-/* HERO */
+.nav-links{
+  display:flex;
+  gap:34px;
+  list-style:none;
+}
+
+.nav-links a{
+  text-decoration:none;
+  color:var(--text-muted);
+  font-size:14px;
+  transition:0.2s;
+}
+
+.nav-links a:hover{
+  color:var(--rose);
+}
+
+.nav-cta{
+  background:var(--rose);
+  color:white;
+
+  padding:12px 24px;
+
+  border-radius:50px;
+
+  text-decoration:none;
+  font-size:14px;
+
+  transition:0.3s;
+}
+
+.nav-cta:hover{
+  background:var(--rose-deep);
+  transform:translateY(-2px);
+}
+
+/* ================= HERO ================= */
+
 .hero{
-text-align:center;
-padding:80px 20px;
-background:linear-gradient(to bottom,#fff0f3,#ffffff);
+  min-height:100vh;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  position:relative;
+
+  padding:120px 60px 80px;
+
+  overflow:hidden;
 }
 
-.hero img{
-width:200px;
-margin-bottom:20px;
+.hero-bg{
+  position:absolute;
+  inset:0;
+
+  background:
+  radial-gradient(circle at top right, rgba(196,69,105,0.08), transparent 40%),
+  radial-gradient(circle at bottom left, rgba(155,32,64,0.06), transparent 35%),
+  var(--cream);
 }
 
-/* SECTION */
+.hero-content{
+  position:relative;
+  z-index:2;
+  max-width:620px;
+}
+
+.hero-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+
+  background:var(--rose-pale);
+  color:var(--rose);
+
+  padding:8px 18px;
+
+  border-radius:50px;
+
+  font-size:13px;
+
+  margin-bottom:28px;
+}
+
+.badge-dot{
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:var(--rose-light);
+}
+
+.hero h1{
+  font-family:'Cormorant Garamond',serif;
+
+  font-size:clamp(42px,6vw,60px);
+
+  line-height:1.08;
+
+  margin-bottom:24px;
+}
+
+.hero h1 em{
+  color:var(--rose);
+  font-style:italic;
+}
+
+.hero-sub{
+  font-size:17px;
+  line-height:1.8;
+  color:var(--text-muted);
+
+  max-width:500px;
+
+  margin-bottom:40px;
+}
+
+.hero-actions{
+  display:flex;
+  gap:16px;
+  flex-wrap:wrap;
+}
+
+.btn-primary{
+  background:linear-gradient(135deg,var(--rose),var(--rose-light));
+  color:white;
+
+  padding:16px 32px;
+
+  border-radius:50px;
+
+  text-decoration:none;
+
+  font-size:15px;
+  font-weight:500;
+
+  box-shadow:0 8px 24px rgba(155,32,64,0.2);
+
+  transition:0.3s;
+}
+
+.btn-primary:hover{
+  transform:translateY(-3px);
+}
+
+.btn-secondary{
+  padding:16px 32px;
+
+  border-radius:50px;
+
+  border:1px solid var(--border);
+
+  color:var(--text-muted);
+
+  text-decoration:none;
+
+  transition:0.3s;
+}
+
+.btn-secondary:hover{
+  background:var(--rose-pale);
+  color:var(--rose);
+}
+
+/* ================= HERO CARDS ================= */
+
+.hero-visual{
+  position:relative;
+  z-index:2;
+}
+
+.hero-card-stack{
+  width:320px;
+  height:360px;
+  position:relative;
+}
+
+.h-card{
+  position:absolute;
+
+  width:280px;
+
+  background:white;
+
+  border-radius:24px;
+
+  overflow:hidden;
+
+  box-shadow:var(--shadow-lg);
+}
+
+.h-card img{
+  width:100%;
+  height:180px;
+  object-fit:cover;
+}
+
+.h-card-body{
+  padding:18px;
+}
+
+.h-card-tag{
+  display:inline-block;
+
+  padding:4px 12px;
+
+  border-radius:20px;
+
+  background:var(--rose-pale);
+  color:var(--rose);
+
+  font-size:11px;
+
+  margin-bottom:10px;
+}
+
+.h-card h4{
+  margin-bottom:4px;
+}
+
+.h-card p{
+  font-size:13px;
+  color:var(--text-light);
+}
+
+.h-card:nth-child(1){
+  top:0;
+  left:40px;
+  transform:rotate(-4deg);
+}
+
+.h-card:nth-child(2){
+  top:30px;
+  left:0;
+  transform:rotate(2deg);
+}
+
+.h-card:nth-child(3){
+  top:60px;
+  left:45px;
+  transform:rotate(-1deg);
+}
+
+/* ================= STATS ================= */
+
+.stats-bar{
+  background:var(--rose);
+
+  padding:22px 40px;
+
+  display:flex;
+  justify-content:center;
+  gap:70px;
+  flex-wrap:wrap;
+}
+
+.stat{
+  text-align:center;
+  color:white;
+}
+
+.stat-num{
+  display:block;
+
+  font-family:'Cormorant Garamond',serif;
+  font-size:34px;
+}
+
+.stat-label{
+  font-size:12px;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+
+  opacity:0.8;
+}
+
+/* ================= SECTION ================= */
+
 section{
-padding:70px 50px;
-text-align:center;
+  padding:100px 60px;
 }
 
-h2{color:#c9184a;}
+.section-label{
+  display:block;
 
-/* BUTTON */
-.main-btn{
-background:#c9184a;
-color:white;
-padding:12px;
-border:none;
-border-radius:20px;
-cursor:pointer;
-width:100%;
+  color:var(--rose-light);
+
+  text-transform:uppercase;
+  letter-spacing:0.15em;
+
+  font-size:12px;
+
+  margin-bottom:14px;
 }
 
-/* QUIZ */
-.quiz{
-max-width:400px;
-margin:auto;
-background:white;
-padding:25px;
-border-radius:15px;
-box-shadow:0 8px 20px rgba(0,0,0,0.08);
+.section-title{
+  font-family:'Cormorant Garamond',serif;
+
+  font-size:46px;
+
+  margin-bottom:16px;
 }
 
-input,select{
-width:100%;
-padding:12px;
-margin-bottom:12px;
-border-radius:10px;
-border:1px solid #ddd;
+.section-sub{
+  max-width:600px;
+
+  color:var(--text-muted);
+
+  line-height:1.8;
 }
+
+/* ================= HOW ================= */
+
+.steps{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:26px;
+
+  margin-top:60px;
+}
+
+.step{
+  background:white;
+
+  border-radius:var(--radius);
+
+  padding:34px;
+
+  position:relative;
+
+  border:1px solid var(--border);
+
+  transition:0.3s;
+}
+
+.step:hover{
+  transform:translateY(-6px);
+  box-shadow:var(--shadow);
+}
+
+.step-num{
+  position:absolute;
+  top:14px;
+  right:18px;
+
+  font-size:60px;
+  font-family:'Cormorant Garamond',serif;
+
+  color:rgba(155,32,64,0.08);
+}
+
+.step-icon{
+  width:50px;
+  height:50px;
+
+  border-radius:14px;
+
+  background:var(--rose-pale);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  margin-bottom:18px;
+
+  font-size:22px;
+}
+
+.step h3{
+  margin-bottom:10px;
+}
+
+.step p{
+  color:var(--text-muted);
+  line-height:1.7;
+  font-size:14px;
+}
+
+/* ================= RANDOM ================= */
+
+.random-section{
+  background:white;
+  text-align:center;
+}
+
+.random-box{
+  max-width:620px;
+
+  margin:50px auto 0;
+
+  background:var(--cream);
+
+  padding:50px;
+
+  border-radius:26px;
+
+  border:1px solid var(--border);
+}
+
+#randomIdea{
+  font-family:'Cormorant Garamond',serif;
+  font-size:30px;
+
+  line-height:1.5;
+
+  min-height:100px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  margin-bottom:34px;
+}
+
+.spin-btn{
+  background:var(--rose);
+  color:white;
+
+  border:none;
+
+  padding:16px 38px;
+
+  border-radius:50px;
+
+  cursor:pointer;
+
+  transition:0.3s;
+}
+
+.spin-btn:hover{
+  transform:translateY(-3px);
+}
+
+/* ================= SOS ================= */
+
+.emergency-section{
+  background:var(--rose-pale);
+  text-align:center;
+}
+
+.sos-box{
+  max-width:620px;
+
+  margin:50px auto 0;
+
+  background:white;
+
+  padding:50px;
+
+  border-radius:26px;
+
+  box-shadow:var(--shadow);
+}
+
+#emergencyResult{
+  font-family:'Cormorant Garamond',serif;
+  font-size:28px;
+
+  line-height:1.5;
+
+  min-height:90px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  margin-bottom:30px;
+}
+
+.sos-btn{
+  background:linear-gradient(135deg,#FF4D6D,#C9184A);
+
+  color:white;
+
+  border:none;
+
+  padding:18px 42px;
+
+  border-radius:50px;
+
+  cursor:pointer;
+
+  transition:0.3s;
+}
+
+.sos-btn:hover{
+  transform:translateY(-3px);
+}
+
+/* ================= PRICING ================= */
+
+.pricing-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:24px;
+
+  margin-top:56px;
+}
+
+.price-card{
+  background:white;
+
+  border-radius:var(--radius);
+
+  padding:36px;
+
+  border:1px solid var(--border);
+
+  transition:0.3s;
+}
+
+.price-card:hover{
+  transform:translateY(-6px);
+}
+
+.price-card.featured{
+  background:var(--rose);
+  color:white;
+
+  transform:scale(1.02);
+
+  box-shadow:var(--shadow-lg);
+}
+
+.price-name{
+  font-size:20px;
+  margin-bottom:10px;
+}
+
+.price-amount{
+  font-family:'Cormorant Garamond',serif;
+  font-size:46px;
+
+  margin-bottom:4px;
+}
+
+.price-period{
+  font-size:13px;
+  opacity:0.7;
+
+  margin-bottom:24px;
+}
+
+.price-features{
+  list-style:none;
+
+  margin-bottom:28px;
+}
+
+.price-features li{
+  padding:10px 0;
+
+  border-bottom:1px solid rgba(0,0,0,0.06);
+
+  font-size:14px;
+}
+
+.price-card.featured .price-features li{
+  border-color:rgba(255,255,255,0.12);
+}
+
+.price-btn{
+  width:100%;
+
+  padding:14px;
+
+  border-radius:50px;
+
+  border:none;
+
+  cursor:pointer;
+
+  background:var(--rose);
+  color:white;
+}
+
+.price-card.featured .price-btn{
+  background:white;
+  color:var(--rose);
+}
+
+/* ================= FOOTER ================= */
+
+footer{
+  background:var(--rose-deep);
+
+  color:white;
+
+  padding:60px;
+}
+
+.footer-inner{
+  display:grid;
+  grid-template-columns:1.5fr 1fr 1fr;
+  gap:60px;
+
+  margin-bottom:40px;
+}
+
+.footer-brand h3{
+  font-family:'Cormorant Garamond',serif;
+  font-size:28px;
+
+  margin-bottom:16px;
+}
+
+.footer-brand p{
+  color:rgba(255,255,255,0.6);
+  line-height:1.8;
+}
+
+.footer-col h4{
+  margin-bottom:18px;
+
+  font-size:12px;
+
+  text-transform:uppercase;
+
+  letter-spacing:0.1em;
+
+  color:rgba(255,255,255,0.5);
+}
+
+.footer-col a{
+  display:block;
+
+  margin-bottom:10px;
+
+  color:rgba(255,255,255,0.7);
+
+  text-decoration:none;
+}
+
+.footer-bottom{
+  border-top:1px solid rgba(255,255,255,0.1);
+
+  padding-top:24px;
+
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.footer-bottom p{
+  font-size:13px;
+  color:rgba(255,255,255,0.4);
+}
+
+/* ================= REVEAL ================= */
+
+.reveal{
+  opacity:0;
+  transform:translateY(40px);
+  transition:1s;
+}
+
+.reveal.active{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:900px){
+
+  nav{
+    padding:16px 24px;
+  }
+
+  nav.scrolled{
+    padding:12px 24px;
+  }
+
+  .nav-links{
+    display:none;
+  }
+
+  .hero{
+    flex-direction:column;
+    padding:120px 24px 70px;
+  }
+
+  .hero-visual{
+    margin-top:60px;
+  }
+
+  .hero-card-stack{
+    display:none;
+  }
+
+  section{
+    padding:80px 24px;
+  }
+
+  .footer-inner{
+    grid-template-columns:1fr;
+  }
+
+  footer{
+    padding:40px 24px;
+  }
+
+  .stats-bar{
+    gap:34px;
+  }
+
+}
+
 </style>
 </head>
 
 <body>
 
-<nav>
-<div class="logo">
-<img src="logo.jpeg">
-<h2>Couple Goals</h2>
-</div>
+<!-- ================= NAV ================= -->
+
+<nav id="navbar">
+
+  <a href="#" class="nav-logo">
+    Couple <span>Goals</span>
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#random">Random Ideas</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+  </ul>
+
+  <a href="https://wa.me/6289524070718" class="nav-cta">
+    WhatsApp
+  </a>
+
 </nav>
 
+<!-- ================= HERO ================= -->
+
 <section class="hero">
-<img src="logo.jpeg">
-<h1>Find Your Perfect Date ❤️</h1>
-<p>We create personalized date ideas for your special moments</p>
+
+  <div class="hero-bg"></div>
+
+  <div class="hero-content">
+
+    <div class="hero-badge">
+      <div class="badge-dot"></div>
+      Date Planner · Pontianak & Singkawang
+    </div>
+
+    <h1>
+      Create Moments <em>She’ll Never</em> Forget
+    </h1>
+
+    <p class="hero-sub">
+      Personalized date ideas, surprise plans, and romantic experiences crafted for your love story.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#random" class="btn-primary">
+        ✦ Start Exploring
+      </a>
+
+      <a href="https://wa.me/6289524070718" class="btn-secondary">
+        Chat via WhatsApp
+      </a>
+    </div>
+
+  </div>
+
+  <div class="hero-visual">
+
+    <div class="hero-card-stack">
+
+      <div class="h-card">
+
+        <img src="picnicdate.jpeg">
+
+        <div class="h-card-body">
+          <div class="h-card-tag">Date Idea</div>
+          <h4>Sunset Picnic 🌅</h4>
+          <p>Alun-alun Kapuas, Pontianak</p>
+        </div>
+
+      </div>
+
+      <div class="h-card">
+
+        <img src="romanticdinner.jpeg">
+
+        <div class="h-card-body">
+          <div class="h-card-tag">Dinner</div>
+          <h4>Romantic Dinner 🕯️</h4>
+          <p>Budget 150k–300k</p>
+        </div>
+
+      </div>
+
+      <div class="h-card">
+
+        <img src="stargazing.jpg">
+
+        <div class="h-card-body">
+          <div class="h-card-tag">Surprise</div>
+          <h4>Stargazing Night ✨</h4>
+          <p>Under the night sky</p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
 </section>
 
-<section>
-<h2>Find Your Perfect Date</h2>
+<!-- ================= STATS ================= -->
 
-<div class="quiz">
+<div class="stats-bar">
 
-<input type="text" id="name" placeholder="Your Name">
-<input type="text" id="partner" placeholder="Partner Name">
+  <div class="stat">
+    <span class="stat-num">500+</span>
+    <span class="stat-label">Happy Couples</span>
+  </div>
 
-<select id="domisili">
-<option>Pontianak</option>
-<option>Singkawang</option>
-</select>
+  <div class="stat">
+    <span class="stat-num">50+</span>
+    <span class="stat-label">Date Ideas</span>
+  </div>
 
-<select id="occasion">
-<option>Valentine</option>
-<option>Anniversary</option>
-<option>Birthday</option>
-</select>
-
-<select id="hobby">
-<option>Food Lover</option>
-<option>Adventure</option>
-<option>Gaming</option>
-<option>Chill</option>
-</select>
-
-<select id="budget">
-<option><100k</option>
-<option>100k - 300k</option>
-<option>>300k</option>
-</select>
-
-<button class="main-btn" onclick="generate()">Get Recommendation</button>
+  <div class="stat">
+    <span class="stat-num">4.9★</span>
+    <span class="stat-label">Rating</span>
+  </div>
 
 </div>
+
+<!-- ================= HOW ================= -->
+
+<section class="reveal" id="how">
+
+  <span class="section-label">Cara Kerja</span>
+
+  <h2 class="section-title">
+    Semudah 1-2-3
+  </h2>
+
+  <p class="section-sub">
+    Dari ide sederhana menjadi momen yang sulit dilupakan.
+  </p>
+
+  <div class="steps">
+
+    <div class="step">
+
+      <div class="step-num">1</div>
+
+      <div class="step-icon">💬</div>
+
+      <h3>Ceritakan Tentang Kalian</h3>
+
+      <p>
+        Bagikan hobi, budget, dan tipe hubungan kalian.
+      </p>
+
+    </div>
+
+    <div class="step">
+
+      <div class="step-num">2</div>
+
+      <div class="step-icon">✨</div>
+
+      <h3>Dapatkan Inspirasi</h3>
+
+      <p>
+        Kami menyiapkan ide date yang personal dan estetik.
+      </p>
+
+    </div>
+
+    <div class="step">
+
+      <div class="step-num">3</div>
+
+      <div class="step-icon">💖</div>
+
+      <h3>Buat Kenangan</h3>
+
+      <p>
+        Nikmati momen spesial bersama pasanganmu.
+      </p>
+
+    </div>
+
+  </div>
+
 </section>
+
+<!-- ================= RANDOM ================= -->
+
+<section class="random-section reveal" id="random">
+
+  <span class="section-label">Random Date Generator</span>
+
+  <h2 class="section-title">
+    Need Romantic Inspiration?
+  </h2>
+
+  <p class="section-sub" style="margin:auto;">
+    Tak bisa memutuskan? Biarkan takdir memilihkan untukmu ✨
+  </p>
+
+  <div class="random-box">
+
+    <div id="randomIdea">
+      Tekan tombol untuk mendapat ide romantis 💖
+    </div>
+
+    <button class="spin-btn" onclick="generateRandom()">
+      🎲 Generate Idea
+    </button>
+
+  </div>
+
+</section>
+
+<!-- ================= SOS ================= -->
+
+<section class="emergency-section reveal">
+
+  <span class="section-label">
+    Save Our Date Night
+  </span>
+
+  <h2 class="section-title">
+    🚨 Relationship Emergency?
+  </h2>
+
+  <p class="section-sub" style="margin:auto;">
+    Ketika suasana mulai membosankan, kami punya penyelamatnya.
+  </p>
+
+  <div class="sos-box">
+
+    <div id="emergencyResult">
+      Tekan tombol untuk menyelamatkan malam kamu ✨
+    </div>
+
+    <button class="sos-btn" onclick="saveDateNight()">
+      ❤️ SAVE DATE NIGHT
+    </button>
+
+  </div>
+
+</section>
+
+<!-- ================= PRICING ================= -->
+
+<section class="reveal" id="pricing">
+
+  <span class="section-label">Pricing</span>
+
+  <h2 class="section-title">
+    Pilih Paketmu
+  </h2>
+
+  <p class="section-sub">
+    Semua paket termasuk konsultasi via WhatsApp.
+  </p>
+
+  <div class="pricing-grid">
+
+    <div class="price-card">
+
+      <div class="price-name">Basic</div>
+
+      <div class="price-amount">Gratis</div>
+
+      <div class="price-period">
+        untuk semua orang
+      </div>
+
+      <ul class="price-features">
+        <li>Random Date Generator</li>
+        <li>SOS Date Night</li>
+        <li>Basic Recommendations</li>
+      </ul>
+
+      <button class="price-btn">
+        Mulai Gratis
+      </button>
+
+    </div>
+
+    <div class="price-card featured">
+
+      <div class="price-name">Premium</div>
+
+      <div class="price-amount">99k</div>
+
+      <div class="price-period">
+        per moment
+      </div>
+
+      <ul class="price-features">
+        <li>Personalized Date Plan</li>
+        <li>WhatsApp Consultation</li>
+        <li>Romantic Timeline</li>
+        <li>Local Recommendations</li>
+      </ul>
+
+      <button class="price-btn">
+        Ambil Paket
+      </button>
+
+    </div>
+
+    <div class="price-card">
+
+      <div class="price-name">Full Service</div>
+
+      <div class="price-amount">249k</div>
+
+      <div class="price-period">
+        all-in service
+      </div>
+
+      <ul class="price-features">
+        <li>Premium Features</li>
+        <li>Decoration Setup</li>
+        <li>Execution by Team</li>
+        <li>Photo Documentation</li>
+      </ul>
+
+      <button class="price-btn">
+        Contact Us
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+  <div class="footer-inner">
+
+    <div class="footer-brand">
+
+      <h3>Couple Goals</h3>
+
+      <p>
+        Platform ide date romantis modern pertama di Kalimantan Barat.
+      </p>
+
+    </div>
+
+    <div class="footer-col">
+
+      <h4>Explore</h4>
+
+      <a href="#how">How It Works</a>
+      <a href="#random">Random Date</a>
+      <a href="#pricing">Pricing</a>
+
+    </div>
+
+    <div class="footer-col">
+
+      <h4>Contact</h4>
+
+      <a href="https://wa.me/6289524070718">WhatsApp</a>
+
+      <a href="https://www.instagram.com/planmydate.id">
+        Instagram
+      </a>
+
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+
+    <p>
+      © 2026 Couple Goals
+    </p>
+
+  </div>
+
+</footer>
 
 <script>
 
-  function show(type){
-let content=document.getElementById("content");
+/* ================= NAV SCROLL ================= */
 
-if(type=="date"){
-content.innerHTML=`
-<div class="card">
-<img src="picnicdate.jpeg">
-<div class="overlay">Picnic Date</div>
-</div>
+window.addEventListener('scroll',()=>{
+  document.getElementById('navbar')
+  .classList.toggle('scrolled',window.scrollY>50);
+});
 
-<div class="card">
-<img src="beachdate.jpeg">
-<div class="overlay">Beach Date</div>
-</div>
+/* ================= REVEAL ================= */
 
-<div class="card">
-<img src="romanticdinner.jpeg">
-<div class="overlay">Romantic Dinner</div>
-</div>
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add('active');
+    }
+  });
+},{
+  threshold:0.1
+});
 
-`;
+document.querySelectorAll('.reveal')
+.forEach(el=>observer.observe(el));
+
+/* ================= RANDOM IDEAS ================= */
+
+const randomIdeas = [
+
+'🌿 Picnic romantis di tepi sungai saat sunset',
+'🎬 Movie marathon dengan snack favorit',
+'☕ Explore café baru sambil deep talk',
+'🎨 Lukis wajah satu sama lain',
+'🌌 Stargazing night dengan teh hangat',
+'📸 Photowalk estetik keliling kota',
+'🍳 Masak dinner bersama di rumah',
+'🛵 Night ride tanpa tujuan pasti',
+'💌 Tulis surat cinta untuk pasangan',
+'🎮 Game night dengan taruhan lucu'
+
+];
+
+let lastRandom = -1;
+
+function generateRandom(){
+
+  const box = document.getElementById('randomIdea');
+
+  box.style.opacity='0';
+
+  let idx;
+
+  do{
+    idx=Math.floor(Math.random()*randomIdeas.length);
+  }
+  while(idx===lastRandom);
+
+  lastRandom=idx;
+
+  setTimeout(()=>{
+
+    box.innerHTML=randomIdeas[idx];
+
+    box.style.opacity='1';
+
+  },200);
+
 }
 
-if(type=="gift"){
-content.innerHTML = `
+/* ================= SOS ================= */
 
-<div class="card">
-<img src="scrapbookorsc.jpeg">
-<div class="overlay">Scrapbook</div>
-</div>
+const sosIdeas = [
 
-<div class="card">
-<img src="watch.jpg">
-<div class="overlay">Watch</div>
-</div>
+'💌 Tulis pesan cinta kecil sekarang juga',
+'🎬 Buat bioskop mini di rumah malam ini',
+'☕ Pergi ke tempat baru tanpa planning',
+'🌙 Jalan malam sambil cerita masa depan',
+'📸 Recreate foto pertama kalian',
+'🎨 Gambar pasangan tanpa lihat kertas',
+'🍜 Masak mi instan ala fine dining',
+'🎮 Main game berdua dengan hukuman lucu'
 
-<div class="card">
-<img src="jewelry.jpg">
-<div class="overlay">Jewelry</div>
-</div>
+];
 
-`;
-}
-if(type=="surprise"){
-content.innerHTML = `
+let lastSos = -1;
 
-<div class="card">
-<img src="scavengerhunt.jpg">
-<div class="overlay">Scavenger Hunt</div>
-</div>
+function saveDateNight(){
 
-<div class="card">
-<img src="stargazing.jpg">
-<div class="overlay">Stargazing Trip</div>
-</div>
+  const box=document.getElementById('emergencyResult');
 
-<div class="card">
-<img src="recreatefirstdate.jpg">
-<div class="overlay">Recreate First Date</div>
-</div>
+  box.style.opacity='0';
 
-`;
-}
+  let idx;
 
-content.classList.add("show");
-}
-  function generate(){
+  do{
+    idx=Math.floor(Math.random()*sosIdeas.length);
+  }
+  while(idx===lastSos);
 
-let name=document.getElementById("name").value;
-let partner=document.getElementById("partner").value;
-let domisili=document.getElementById("domisili").value;
-let occasion=document.getElementById("occasion").value;
-let hobby=document.getElementById("hobby").value;
-let budget=document.getElementById("budget").value;
+  lastSos=idx;
 
-if(name==""||partner==""){
-alert("Isi nama dulu ya!");
-return;
+  setTimeout(()=>{
+
+    box.innerHTML=sosIdeas[idx];
+
+    box.style.opacity='1';
+
+  },200);
+
 }
 
-let idea="";
-
-if(budget=="<100k"){
-idea="• Coffee Date ☕\n• Movie Date 🎬\n";
-}
-else if(budget=="100k - 300k"){
-idea="• Picnic Date 🌿\n• Romantic Dinner 🍝\n";
-}
-else{
-idea="• Staycation 🏨\n• Fine Dining 🍷\n";
-}
-
-if(hobby=="Food Lover") idea+="• Culinary Tour 🍜\n";
-if(hobby=="Adventure") idea+="• Outdoor Date 🌄\n";
-if(hobby=="Gaming") idea+="• Arcade Date 🎮\n";
-if(hobby=="Chill") idea+="• Netflix Date 🛋️\n";
-
-if(domisili=="Singkawang") idea+="• Beach Date 🌊\n";
-if(domisili=="Pontianak") idea+="• Cafe Hopping ☕\n";
-
-if(occasion=="Birthday") idea+="• Surprise Party 🎉\n";
-if(occasion=="Anniversary") idea+="• Romantic Setup 💕\n";
-
-let message = `Halo Couple Goals ❤️
-
-Saya ${name} ingin konsultasi.
-Pasangan saya: ${partner}
-
-📍 Domisili: ${domisili}
-🎉 Occasion: ${occasion}
-💖 Hobby: ${hobby}
-💰 Budget: ${budget}
-
-✨ Ide:
-${idea}
-
-Mohon bantu rekomendasi terbaik ya 😊
-Terima kasih 🙏`;
-
-let link = "https://api.whatsapp.com/send?phone=6289524070718&text=" + encodeURIComponent(message);
-
-window.open(link, "_blank");
-}
 </script>
 
 </body>
