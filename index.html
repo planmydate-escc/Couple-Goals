@@ -74,6 +74,12 @@ font-size:24px;font-weight:600;
 color:var(--rose);
 text-decoration:none;
 }
+.nav-logo img{
+width:40px;
+height:40px;
+object-fit:contain;
+border-radius:50%;
+}
 .nav-logo span{color:var(--text);font-weight:400;}
 .nav-links{display:flex;gap:32px;list-style:none;}
 .nav-links a{
@@ -219,6 +225,29 @@ background:var(--rose-pale);
 position:absolute;right:60px;top:50%;transform:translateY(-50%);
 width:420px;
 z-index:2;
+}
+
+.floating-logo{
+position:absolute;
+left:-140px;
+top:110px;
+z-index:5;
+animation:floatLogo 4s ease-in-out infinite;
+}
+
+.floating-logo img{
+width:95px;
+opacity:0.95;
+filter:drop-shadow(0 10px 25px rgba(155,32,64,0.18));
+}
+
+@keyframes floatLogo{
+0%,100%{
+transform:translateY(0px);
+}
+50%{
+transform:translateY(-14px);
+}
 }
 .hero-card-stack{
 position:relative;
@@ -930,6 +959,16 @@ nav.scrolled{padding:12px 24px;}
 .hero{padding:100px 24px 60px;flex-direction:column;}
 .hero h1{font-size:44px;}
 .hero-visual{position:relative;right:auto;top:auto;transform:none;width:100%;margin-top:48px;}
+.cursor-follower{
+display:none;
+}
+
+.cursor{
+width:16px;
+height:16px;
+opacity:0.7;
+backdrop-filter:blur(4px);
+}
 section{padding:70px 24px;}
 .form-row{grid-template-columns:1fr;}
 .ai-form{padding:24px;}
@@ -937,7 +976,11 @@ section{padding:70px 24px;}
 .stats-bar{padding:20px 24px;gap:40px;}
 .instagram-section{padding:60px 24px;}
 footer{padding:40px 24px 28px;}
-.hero-card-stack{display:none;}
+.hero-card-stack{
+display:block;
+transform:scale(0.82);
+height:320px;
+}
 }
 </style>
 </head>
@@ -949,7 +992,10 @@ footer{padding:40px 24px 28px;}
 
 <!-- NAV -->
 <nav id="navbar">
-  <a class="nav-logo" href="#">Couple <span>Goals</span></a>
+  <a class="nav-logo" href="#">
+  <img src="logo.png" alt="Couple Goals Logo">
+  Couple <span>Goals</span>
+</a>
   <ul class="nav-links">
     <li><a href="#how">How It Works</a></li>
     <li><a href="#experiences">Experiences</a></li>
@@ -976,6 +1022,9 @@ footer{padding:40px 24px 28px;}
     </div>
   </div>
   <div class="hero-visual">
+  <div class="floating-logo">
+  <img src="logo.png" alt="Logo">
+</div>
     <div class="hero-card-stack">
       <div class="h-card" style="background:#fff;">
         <img src="picnicdate.jpeg" alt="Picnic Date" onerror="this.style.background='#FFF0F3';this.style.height='180px'">
@@ -1414,9 +1463,24 @@ const cur = document.getElementById('cursor');
 const curF = document.getElementById('cursorFollower');
 let mx=0,my=0,fx=0,fy=0;
 document.addEventListener('mousemove',e=>{
-  mx=e.clientX;my=e.clientY;
-  cur.style.left=(mx-5)+'px';cur.style.top=(my-5)+'px';
+  mx=e.clientX;
+  my=e.clientY;
+
+  cur.style.left=(mx-5)+'px';
+  cur.style.top=(my-5)+'px';
 });
+
+/* MOBILE TOUCH SUPPORT */
+document.addEventListener('touchmove',e=>{
+  const touch=e.touches[0];
+
+  mx=touch.clientX;
+  my=touch.clientY;
+
+  cur.style.left=(mx-5)+'px';
+  cur.style.top=(my-5)+'px';
+});
+
 function animateCursor(){
   fx+=(mx-fx)*0.1; fy+=(my-fy)*0.1;
   curF.style.left=(fx-17)+'px'; curF.style.top=(fy-17)+'px';
