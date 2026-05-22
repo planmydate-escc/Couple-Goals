@@ -105,10 +105,10 @@ section{padding:100px 60px;}
 .tab-bar{display:flex;gap:8px;flex-wrap:wrap;margin:40px 0 32px;}
 .tab-btn{padding:10px 22px;border-radius:50px;border:0.5px solid var(--border);background:transparent;color:var(--text-muted);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:400;cursor:pointer;transition:all 0.2s;}
 .tab-btn.active,.tab-btn:hover{background:var(--rose);color:white;border-color:var(--rose);}
-.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:24px;}
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:24px;opacity:1;transition:all 0.4s ease;}
 .exp-card{border-radius:var(--radius);overflow:hidden;background:white;border:0.5px solid var(--border);transition:all 0.3s;cursor:pointer;}
 .exp-card:hover{transform:translateY(-8px);box-shadow:var(--shadow-lg);}
-.exp-card-img{position:relative;height:200px;overflow:hidden;}
+.exp-card-img{position:relative;height:200px;overflow:hidden;background:var(--rose-pale);}
 .exp-card-img img{width:100%;height:100%;object-fit:cover;transition:transform 0.4s;}
 .exp-card:hover .exp-card-img img{transform:scale(1.06);}
 .exp-card-badge{position:absolute;top:12px;left:12px;background:rgba(255,255,255,0.9);backdrop-filter:blur(8px);color:var(--rose);font-size:11px;font-weight:500;padding:4px 12px;border-radius:20px;}
@@ -182,15 +182,12 @@ footer{background:var(--rose-deep);color:white;padding:60px 60px 40px;}
 .footer-bottom p{font-size:13px;color:rgba(255,255,255,0.4);}
 .reveal{opacity:0;transform:translateY(40px);transition:all 0.8s cubic-bezier(0.22,1,0.36,1);}
 .reveal.active{opacity:1;transform:translateY(0);}
-
-/* Plan cards styling */
 .plan-card{background:rgba(255,255,255,0.06);border:0.5px solid rgba(255,255,255,0.2);border-radius:14px;padding:20px;margin-bottom:16px;}
 .plan-card-header{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
 .plan-card-icon{font-size:22px;}
 .plan-card-title{font-size:16px;font-weight:600;color:white;}
 .plan-card-body{font-size:14px;color:rgba(255,255,255,0.82);line-height:1.7;}
 .plan-tag{display:inline-block;background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.9);font-size:11px;padding:3px 10px;border-radius:20px;margin-right:6px;margin-bottom:6px;}
-
 @media(max-width:900px){
   nav{padding:16px 24px;}
   nav.scrolled{padding:12px 24px;}
@@ -349,7 +346,7 @@ footer{background:var(--rose-deep);color:white;padding:60px 60px 40px;}
         </div>
         <div id="aiResultContent"></div>
         <a href="#" class="wa-btn" id="waBtn" style="display:none;" target="_blank">
-          📱 Konsultasi Gratis via WhatsApp — Dapat Rencana Lengkap + Dekorasi + Tips Eksekusi!
+          📱 Konsultasi Gratis via WhatsApp 
         </a>
       </div>
     </div>
@@ -463,59 +460,104 @@ footer{background:var(--rose-deep);color:white;padding:60px 60px 40px;}
 
 <script>
 /* ===== CURSOR ===== */
-const cur=document.getElementById('cursor'),curF=document.getElementById('cursorFollower');
-let mx=0,my=0,fx=0,fy=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=(mx-5)+'px';cur.style.top=(my-5)+'px';});
-document.addEventListener('touchmove',e=>{const t=e.touches[0];mx=t.clientX;my=t.clientY;cur.style.left=(mx-5)+'px';cur.style.top=(my-5)+'px';});
-(function animateCursor(){fx+=(mx-fx)*0.1;fy+=(my-fy)*0.1;curF.style.left=(fx-17)+'px';curF.style.top=(fy-17)+'px';requestAnimationFrame(animateCursor);})();
-document.querySelectorAll('a,button').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{cur.style.transform='scale(2.5)';curF.style.transform='scale(0.6)';});
-  el.addEventListener('mouseleave',()=>{cur.style.transform='scale(1)';curF.style.transform='scale(1)';});
+const cur = document.getElementById('cursor');
+const curF = document.getElementById('cursorFollower');
+let mx = 0, my = 0, fx = 0, fy = 0;
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cur.style.left = (mx - 5) + 'px';
+  cur.style.top = (my - 5) + 'px';
+});
+document.addEventListener('touchmove', e => {
+  const t = e.touches[0];
+  mx = t.clientX; my = t.clientY;
+  cur.style.left = (mx - 5) + 'px';
+  cur.style.top = (my - 5) + 'px';
+});
+(function animateCursor() {
+  fx += (mx - fx) * 0.1;
+  fy += (my - fy) * 0.1;
+  curF.style.left = (fx - 17) + 'px';
+  curF.style.top = (fy - 17) + 'px';
+  requestAnimationFrame(animateCursor);
+})();
+document.querySelectorAll('a,button').forEach(el => {
+  el.addEventListener('mouseenter', () => { cur.style.transform = 'scale(2.5)'; curF.style.transform = 'scale(0.6)'; });
+  el.addEventListener('mouseleave', () => { cur.style.transform = 'scale(1)'; curF.style.transform = 'scale(1)'; });
 });
 
 /* ===== PETALS ===== */
-(function(){const c=document.getElementById('petals');for(let i=0;i<18;i++){const p=document.createElement('div');p.className='petal';p.style.left=Math.random()*100+'%';p.style.top=Math.random()*-20+'%';p.style.animationDuration=(8+Math.random()*12)+'s';p.style.animationDelay=(Math.random()*10)+'s';p.style.width=(4+Math.random()*6)+'px';p.style.height=(6+Math.random()*10)+'px';p.style.opacity=0.2+Math.random()*0.3;c.appendChild(p);}})();
+(function () {
+  const c = document.getElementById('petals');
+  for (let i = 0; i < 18; i++) {
+    const p = document.createElement('div');
+    p.className = 'petal';
+    p.style.left = Math.random() * 100 + '%';
+    p.style.top = Math.random() * -20 + '%';
+    p.style.animationDuration = (8 + Math.random() * 12) + 's';
+    p.style.animationDelay = (Math.random() * 10) + 's';
+    p.style.width = (4 + Math.random() * 6) + 'px';
+    p.style.height = (6 + Math.random() * 10) + 'px';
+    p.style.opacity = 0.2 + Math.random() * 0.3;
+    c.appendChild(p);
+  }
+})();
 
 /* ===== NAV ===== */
-window.addEventListener('scroll',()=>document.getElementById('navbar').classList.toggle('scrolled',scrollY>50));
+window.addEventListener('scroll', () =>
+  document.getElementById('navbar').classList.toggle('scrolled', scrollY > 50)
+);
 
 /* ===== REVEAL ===== */
-const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('active');}),{threshold:0.1});
-document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+const obs = new IntersectionObserver(entries =>
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('active'); }),
+  { threshold: 0.1 }
+);
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-/* ===== TABS ===== */
-const expData={
-  date:[
-    {img:'picnicdate.jpeg',tag:'Outdoor',name:'Picnic Date',desc:'Sunset di tepi Sungai Kapuas dengan hamper romantis'},
-    {img:'romanticdinner.jpeg',tag:'Dining',name:'Romantic Dinner',desc:'Makan malam berdua dengan suasana penuh cahaya lilin'},
-    {img:'beachdate.jpeg',tag:'Nature',name:'Beach Date',desc:'Berduaan di tepi pantai dengan angin semilir'},
-    {img:'stargazing.jpg',tag:'Night',name:'Stargazing Night',desc:'Rebahan bersama di bawah hamparan bintang'},
+/* ===== EXPERIENCE TABS ===== */
+const expData = {
+  date: [
+    { img: 'picnicdate.jpeg', tag: 'Outdoor', name: 'Picnic Date', desc: 'Sunset di tepi Sungai Kapuas dengan hamper romantis' },
+    { img: 'romanticdinner.jpeg', tag: 'Dining', name: 'Romantic Dinner', desc: 'Makan malam berdua dengan suasana penuh cahaya lilin' },
+    { img: 'beachdate.jpeg', tag: 'Nature', name: 'Beach Date', desc: 'Berduaan di tepi pantai dengan angin semilir' },
+    { img: 'stargazing.jpg', tag: 'Night', name: 'Stargazing Night', desc: 'Rebahan bersama di bawah hamparan bintang' }
   ],
-  gift:[
-    {img:'scrapbook.jpg',tag:'Handmade',name:'Memory Scrapbook',desc:'Kumpulan kenangan terbaik dalam satu buku istimewa'},
-    {img:'watch.jpg',tag:'Classic',name:'Couple Watch',desc:'Jam tangan pasangan sebagai simbol waktu bersama'},
-    {img:'jewelry.jpg',tag:'Elegant',name:'Jewelry',desc:'Perhiasan bermakna yang selalu menemaninya'},
+  gift: [
+    { img: 'scrapbook.jpg', tag: 'Handmade', name: 'Memory Scrapbook', desc: 'Kumpulan kenangan terbaik dalam satu buku istimewa' },
+    { img: 'watch.jpg', tag: 'Classic', name: 'Couple Watch', desc: 'Jam tangan pasangan sebagai simbol waktu bersama' },
+    { img: 'jewelry.jpg', tag: 'Elegant', name: 'Jewelry', desc: 'Perhiasan bermakna yang selalu menemaninya' }
   ],
-  surprise:[
-    {img:'stargazing.jpg',tag:'Romantic',name:'Stargazing Setup',desc:'Dekorasi karpet, lilin, dan teleskop di taman'},
-    {img:'recreatefirstdate.jpg',tag:'Nostalgia',name:'Recreate First Date',desc:'Ulangi momen pertama kalian dengan sentuhan baru'},
-    {img:'scavengerbox.jpg',tag:'Fun',name:'Scavenger Hunt',desc:'Petunjuk cinta tersembunyi di seluruh kota'},
+  surprise: [
+    { img: 'stargazing.jpg', tag: 'Romantic', name: 'Stargazing Setup', desc: 'Dekorasi karpet, lilin, dan teleskop di taman' },
+    { img: 'recreatefirstdate.jpg', tag: 'Nostalgia', name: 'Recreate First Date', desc: 'Ulangi momen pertama kalian dengan sentuhan baru' },
+    { img: 'scavengerbox.jpg', tag: 'Fun', name: 'Scavenger Hunt', desc: 'Petunjuk cinta tersembunyi di seluruh kota' }
   ]
 };
-function showTab(type,btn){
-  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+
+function showTab(type, btn) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  const grid=document.getElementById('expContent');
-  grid.style.opacity='0';grid.style.transform='translateY(12px)';
-  setTimeout(()=>{
-    grid.innerHTML=expData[type].map(d=>`<div class="exp-card"><div class="exp-card-img"><img src="${d.img}" alt="${d.name}" onerror="this.style.background='var(--rose-pale)'"><div class="exp-card-badge">${d.tag}</div></div><div class="exp-card-body"><h3>${d.name}</h3><p>${d.desc}</p></div></div>`).join('');
-    grid.style.opacity='1';grid.style.transform='translateY(0)';grid.style.transition='all 0.4s ease';
-  },200);
+  const grid = document.getElementById('expContent');
+  grid.style.opacity = '0';
+  grid.style.transform = 'translateY(12px)';
+  setTimeout(() => {
+    grid.innerHTML = expData[type].map(d =>
+      `<div class="exp-card">
+        <div class="exp-card-img">
+          <img src="${d.img}" alt="${d.name}" onerror="this.style.display='none'">
+          <div class="exp-card-badge">${d.tag}</div>
+        </div>
+        <div class="exp-card-body"><h3>${d.name}</h3><p>${d.desc}</p></div>
+      </div>`
+    ).join('');
+    grid.style.opacity = '1';
+    grid.style.transform = 'translateY(0)';
+  }, 200);
 }
-showTab('date',document.querySelector('.tab-btn'));
 
 /* ===== RANDOM DATE ===== */
-const randomIdeas=[
+const randomIdeas = [
   '🌿 Picnic date saat matahari terbenam di tepi sungai',
   '🎬 Film marathon malam dengan popcorn dan selimut',
   '☕ Explore café baru yang belum pernah dikunjungi',
@@ -527,19 +569,26 @@ const randomIdeas=[
   '🎮 Game night seru dengan taruhan kecil',
   '💌 Tulis surat cinta untuk satu sama lain',
   '🧩 Main puzzle bersama sambil ngobrol panjang',
-  '🌅 Nonton sunrise bareng dari tempat tertinggi di kota',
+  '🌅 Nonton sunrise bareng dari tempat tertinggi di kota'
 ];
-let lastRandom=-1;
-function generateRandom(){
-  const box=document.getElementById('randomIdea');
-  box.style.opacity='0';box.style.transform='translateY(10px)';
-  let idx;do{idx=Math.floor(Math.random()*randomIdeas.length);}while(idx===lastRandom);
-  lastRandom=idx;
-  setTimeout(()=>{box.textContent=randomIdeas[idx];box.style.opacity='1';box.style.transform='translateY(0)';box.style.transition='all 0.3s ease';},200);
+let lastRandom = -1;
+function generateRandom() {
+  const box = document.getElementById('randomIdea');
+  box.style.opacity = '0';
+  box.style.transform = 'translateY(10px)';
+  let idx;
+  do { idx = Math.floor(Math.random() * randomIdeas.length); } while (idx === lastRandom);
+  lastRandom = idx;
+  setTimeout(() => {
+    box.textContent = randomIdeas[idx];
+    box.style.opacity = '1';
+    box.style.transform = 'translateY(0)';
+    box.style.transition = 'all 0.3s ease';
+  }, 200);
 }
 
 /* ===== SOS ===== */
-const sosIdeas=[
+const sosIdeas = [
   '💌 Tulis surat cinta kecil dan selipkan di tasnya sekarang',
   '🎬 Buat bioskop mini di rumah dengan snack favoritnya',
   '🌙 Keluar rumah, rebahan di atas motor, lihat bintang bersama',
@@ -549,429 +598,476 @@ const sosIdeas=[
   '💬 15 menit tanya jawab: pertanyaan paling dalam yang belum pernah ditanya',
   '🎮 Mainkan game HP bersama dengan taruhan pijat kaki',
   '🍳 Masak mi instan versi gourmet bersama dengan kreatif',
-  '🚶 Jalan kaki bareng tengah malam dan cerita tentang impian',
+  '🚶 Jalan kaki bareng tengah malam dan cerita tentang impian'
 ];
-let lastSos=-1;
-function saveDateNight(){
-  const box=document.getElementById('emergencyResult');
-  box.style.opacity='0';box.style.transform='scale(0.95)';
-  let idx;do{idx=Math.floor(Math.random()*sosIdeas.length);}while(idx===lastSos);
-  lastSos=idx;
-  setTimeout(()=>{box.textContent=sosIdeas[idx];box.style.opacity='1';box.style.transform='scale(1)';box.style.transition='all 0.3s ease';},200);
+let lastSos = -1;
+function saveDateNight() {
+  const box = document.getElementById('emergencyResult');
+  box.style.opacity = '0';
+  box.style.transform = 'scale(0.95)';
+  let idx;
+  do { idx = Math.floor(Math.random() * sosIdeas.length); } while (idx === lastSos);
+  lastSos = idx;
+  setTimeout(() => {
+    box.textContent = sosIdeas[idx];
+    box.style.opacity = '1';
+    box.style.transform = 'scale(1)';
+    box.style.transition = 'all 0.3s ease';
+  }, 200);
 }
 
-/* ===== AI DATE PLANNER (100% LOCAL — no API) ===== */
+/* ===== AI DATE PLANNER ===== */
 
-// Database ide berdasarkan kombinasi input
+/*
+  FIX: Struktur dateIdeas diperbaiki total.
+  Setiap hobby memiliki 3 budget × 2 kota = 6 kombinasi lengkap.
+  Tidak ada lagi kurung kurawal yang salah posisi atau key yang hilang.
+*/
 const dateIdeas = {
- kuliner: {
-  hemat: {
-    Pontianak: {
-      name: 'Sunset & Street Food Date',
-      lokasi: 'Alun-Alun Kapuas & Gajahmada, Pontianak',
-      aktivitas: 'Jalan sore menikmati sunset di tepian Kapuas lalu lanjut kulineran mie tiaw, nasi campur, atau jajanan malam favorit warga lokal.',
-      kejutan: 'Belikan dessert atau minuman favoritnya diam-diam.',
-      tips: 'Datang sekitar jam 5 sore supaya dapat suasana sunset dan city light malam.',
-      prop: '🌇 Sunset + 🎶 Playlist romantis + 📸 Foto candid'
-    },
+
+  kuliner: {
+    hemat: {
+      Pontianak: {
+        name: 'Sunset & Street Food Date',
+        lokasi: 'Alun-Alun Kapuas & Jl. Gajahmada, Pontianak',
+        aktivitas: 'Jalan sore menikmati sunset di tepian Kapuas lalu lanjut kulineran mie tiaw, nasi campur, atau jajanan malam favorit warga lokal.',
+        kejutan: 'Belikan dessert atau minuman favoritnya diam-diam sebelum berangkat.',
+        tips: 'Datang sekitar jam 5 sore supaya dapat suasana sunset dan city light malam.',
+        prop: '🌇 Sunset + 🎶 Playlist romantis + 📸 Foto candid'
+      },
       Singkawang: {
         name: 'Wisata Kuliner Khas Singkawang',
         lokasi: 'Jalan Diponegoro / Pasar Ikan, Singkawang',
-        aktivitas: 'Cicipi bubur pedas, chai kwe, dan es jeruk khas Singkawang',
-        kejutan: 'Buat daftar 5 makanan yang harus dicoba berdua malam ini',
-        tips: 'Jalan kaki santai sambil foto-foto suasana kota tua',
+        aktivitas: 'Cicipi bubur pedas, chai kwe, dan es jeruk khas Singkawang sambil jalan kaki santai.',
+        kejutan: 'Buat daftar 5 makanan yang harus dicoba berdua malam ini dan beri rating bareng.',
+        tips: 'Jalan kaki santai sambil foto-foto suasana kota tua yang ikonik.',
         prop: '📋 Daftar kuliner + ✏️ Beri rating bersama'
       }
     },
     sedang: {
-    Pontianak: {
-      name: 'Romantic Riverside Dinner',
-      lokasi: 'Cafe / resto tepi Kapuas, Pontianak',
-      aktivitas: 'Dinner romantis sambil menikmati suasana sungai dan lampu malam.',
-      kejutan: 'Titip note kecil ke waiter untuk diberikan saat dessert.',
-      tips: 'Pilih meja outdoor dekat view sungai.',
-      prop: '🌹 Bouquet mini + 🕯️ Candle vibes + 🍰 Dessert'
-    },
+      Pontianak: {
+        name: 'Romantic Riverside Dinner',
+        lokasi: 'Café / resto tepi Kapuas, Pontianak',
+        aktivitas: 'Dinner romantis sambil menikmati suasana sungai dan lampu malam Pontianak.',
+        kejutan: 'Titip note kecil ke waiter untuk diberikan saat dessert tiba.',
+        tips: 'Pilih meja outdoor dekat view sungai, reservasi dulu agar tidak antri.',
+        prop: '🌹 Bouquet mini + 🕯️ Candle vibes + 🍰 Dessert spesial'
+      },
       Singkawang: {
         name: 'Dinner Romantis di Resto Kota Seribu Kelenteng',
         lokasi: 'Restoran tepi laut / Bukit Bawang, Singkawang',
-        aktivitas: 'Makan malam dengan pemandangan laut dan nuansa oriental',
-        kejutan: 'Siapkan foto berdua yang sudah dicetak untuk diberikan saat makan',
-        tips: 'Coba menu seafood fresh sambil nikmati angin laut',
+        aktivitas: 'Makan malam dengan pemandangan laut dan nuansa oriental yang khas.',
+        kejutan: 'Siapkan foto berdua yang sudah dicetak untuk diberikan saat makan malam.',
+        tips: 'Coba menu seafood fresh sambil nikmati angin laut sore hari.',
         prop: '📸 Foto kenangan + 🦞 Seafood dinner'
       }
     },
-   premium: {
-    Pontianak: {
-      name: 'Luxury Staycation Couple Night',
-      lokasi: 'Hotel premium Pontianak',
-      aktivitas: 'Staycation romantis semalam dengan dinner dan quality time berdua.',
-      kejutan: 'Dekorasi kamar dengan rose petals dan surprise gift kecil.',
-      tips: 'Booking kamar dengan city view atau river view.',
-      prop: '🏨 Hotel room + 🌹 Rose petals + 🎁 Surprise gift'
-    },
+    premium: {
+      Pontianak: {
+        name: 'Luxury Staycation Couple Night',
+        lokasi: 'Hotel premium Pontianak (Mercure / Aston / Harris)',
+        aktivitas: 'Staycation romantis semalam dengan dinner dan quality time berdua tanpa gangguan.',
+        kejutan: 'Dekorasi kamar dengan rose petals dan surprise gift kecil yang sudah disiapkan.',
+        tips: 'Booking kamar dengan city view atau river view untuk suasana terbaik.',
+        prop: '🏨 Hotel room + 🌹 Rose petals + 🎁 Surprise gift'
+      },
       Singkawang: {
-      name: 'Private Beach Romantic Dinner',
-      lokasi: 'Pantai Pasir Panjang, Singkawang',
-      aktivitas: 'Dinner romantis di pinggir pantai dengan setup lampu dan tikar estetik.',
-      kejutan: 'Tulis pesan romantis di pasir sebelum pasangan datang.',
-      tips: 'Datang menjelang malam untuk suasana lebih intimate.',
-      prop: '🕯️ Fairy lights + 🌊 Beach vibes + 💌 Love note'
+        name: 'Private Beach Romantic Dinner',
+        lokasi: 'Pantai Pasir Panjang, Singkawang',
+        aktivitas: 'Dinner romantis di pinggir pantai dengan setup lampu dan tikar estetik.',
+        kejutan: 'Tulis pesan romantis di pasir sebelum pasangan datang.',
+        tips: 'Datang menjelang malam untuk suasana lebih intimate dan angin sepoi.',
+        prop: '🕯️ Fairy lights + 🌊 Beach vibes + 💌 Love note di pasir'
+      }
     }
-  }
-},
+  },
+
   foto: {
     hemat: {
       Pontianak: {
         name: 'Golden Hour Photowalk di Pontianak',
         lokasi: 'Tugu Khatulistiwa & Alun-Alun Kapuas, Pontianak',
-        aktivitas: 'Photowalk sore hari dengan golden hour sebagai backdrop',
-        kejutan: 'Cetak foto terbaik diam-diam dan kasih ke dia minggu depan',
-        tips: 'Bawa tripod kecil, pakai outfit matching yang sudah direncanakan',
+        aktivitas: 'Photowalk sore hari dengan golden hour sebagai backdrop ikonik.',
+        kejutan: 'Cetak foto terbaik diam-diam dan kasih ke dia minggu depan sebagai kejutan.',
+        tips: 'Bawa tripod kecil, pakai outfit matching yang sudah direncanakan sebelumnya.',
         prop: '📸 Kamera / HP dengan lensa bagus + 🎨 Outfit matching'
       },
-    Singkawang: {
-      name: 'Old Town Couple Photos',
-      lokasi: 'Kawasan pecinan Singkawang',
-      aktivitas: 'Foto candid di jalan kota tua dan bangunan khas Singkawang.',
-      kejutan: 'Bawakan props lucu seperti bunga atau payung estetik.',
-      tips: 'Datang pagi atau sore supaya cahaya lebih bagus.',
-      prop: '📷 Kamera + 🌸 Props estetik + ☕ Café hopping'
-    }
-  },
+      Singkawang: {
+        name: 'Old Town Couple Photos',
+        lokasi: 'Kawasan pecinan & Jl. Niaga, Singkawang',
+        aktivitas: 'Foto candid di jalan kota tua dan bangunan khas Singkawang yang ikonik.',
+        kejutan: 'Bawakan props lucu seperti bunga atau payung estetik sebagai kejutan.',
+        tips: 'Datang pagi atau sore supaya cahaya lebih bagus dan suasana lebih tenang.',
+        prop: '📷 Kamera + 🌸 Props estetik + ☕ Café hopping setelahnya'
+      }
+    },
     sedang: {
       Pontianak: {
         name: 'Aesthetic Photo Date di Hidden Café Pontianak',
         lokasi: 'Café estetik di kawasan Imam Bonjol / Ahmad Yani, Pontianak',
-        aktivitas: 'Hunting foto di 3-4 café paling estetik di Pontianak',
-        kejutan: 'Buat "photo challenge" dengan tema berbeda di tiap kafe',
-        tips: 'Buat list kafe dulu, pilih yang punya nuansa berbeda-beda',
-        prop: '📋 Challenge list + ☕ Budget untuk 3 kafe'
+        aktivitas: 'Hunting foto di 3–4 café paling estetik di Pontianak dengan tema berbeda.',
+        kejutan: 'Buat "photo challenge" dengan tema berbeda di tiap kafe sebagai game seru.',
+        tips: 'Buat list kafe dulu sebelum berangkat, pilih yang punya nuansa berbeda-beda.',
+        prop: '📋 Challenge list + ☕ Budget untuk 3–4 kafe'
       },
       Singkawang: {
         name: 'Sunrise Photoshoot di Pantai & Perbukitan',
         lokasi: 'Pantai Pasir Panjang & Bukit Bougenville, Singkawang',
-        aktivitas: 'Pagi hari mulai dari pantai, lanjut ke bukit untuk panorama',
-        kejutan: 'Bawa sarapan piknik sederhana setelah photoshoot',
-        tips: 'Set alarm lebih awal, siapkan outfit yang nyaman dan kece',
-        prop: '🌅 Momen alami + 🧺 Piknik sederhana'
+        aktivitas: 'Pagi hari mulai dari pantai, lanjut ke bukit untuk panorama kota dari atas.',
+        kejutan: 'Bawa sarapan piknik sederhana untuk dinikmati setelah photoshoot di atas bukit.',
+        tips: 'Set alarm lebih awal jam 5.30, siapkan outfit yang nyaman dan kece.',
+        prop: '🌅 Momen alami + 🧺 Piknik sederhana + 📸 Kamera'
       }
     },
     premium: {
       Pontianak: {
         name: 'Professional Couple Photoshoot',
         lokasi: 'Studio foto profesional + outdoor di Pontianak',
-        aktivitas: 'Sesi foto profesional dengan fotografer, 2 lokasi berbeda',
-        kejutan: 'Buat foto album fisik dari hasil sesi foto ini',
-        tips: 'Siapkan 2-3 outfit ganti, brief fotografer tentang vibe yang diinginkan',
-        prop: '👗 Outfit ganti + 💄 MUA opsional + 📘 Album foto'
+        aktivitas: 'Sesi foto profesional dengan fotografer berpengalaman, 2 lokasi berbeda.',
+        kejutan: 'Buat foto album fisik premium dari hasil sesi foto ini sebagai kenangan.',
+        tips: 'Siapkan 2–3 outfit ganti, brief fotografer tentang vibe dan mood yang diinginkan.',
+        prop: '👗 Outfit ganti + 💄 MUA opsional + 📘 Album foto premium'
       },
       Singkawang: {
-        name: 'Cinematic Photoshoot di Singkawang',
-        lokasi: 'Pantai + Kelenteng + Bukit Singkawang',
-        aktivitas: 'Full-day couple shoot di 3 lokasi ikonik Singkawang',
-        kejutan: 'Surprise dia dengan video slideshow hasil foto di akhir hari',
-        tips: 'Hire fotografer lokal yang paham spot terbaik Singkawang',
+        name: 'Cinematic Couple Shoot di Singkawang',
+        lokasi: 'Pantai + Kelenteng + Bukit ikonik Singkawang',
+        aktivitas: 'Full-day couple shoot di 3 lokasi ikonik terbaik Singkawang.',
+        kejutan: 'Surprise dia dengan video slideshow hasil foto di penghujung hari.',
+        tips: 'Hire fotografer lokal yang paham spot terbaik dan cahaya di Singkawang.',
         prop: '🎬 Videographer + 💐 Bouquet + 🪄 Props estetik'
       }
     }
   },
- alam: {
-  hemat: {
-    Pontianak: {
-      name: 'Sunset Ride Date',
-      lokasi: 'Tepian Kapuas',
-      aktivitas: 'Naik motor sore sambil menikmati sunset dan city light malam.',
-      kejutan: 'Bawakan kopi atau minuman favoritnya.',
-      tips: 'Pilih weekday supaya lebih tenang.',
-      prop: '🛵 Night ride + ☕ Kopi hangat + 🌇 Sunset'
-    },
+
+  alam: {
+    hemat: {
+      Pontianak: {
+        name: 'Sunset Ride & City Lights Date',
+        lokasi: 'Tepian Kapuas & jalan-jalan Pontianak',
+        aktivitas: 'Naik motor sore sambil menikmati sunset dan city light malam hari.',
+        kejutan: 'Bawakan kopi atau minuman favoritnya diam-diam sebelum berangkat.',
+        tips: 'Pilih weekday supaya jalanan lebih lengang dan suasana lebih tenang.',
+        prop: '🛵 Night ride + ☕ Kopi hangat + 🌇 Sunset Kapuas'
+      },
       Singkawang: {
         name: 'Hiking Santai ke Bukit Bougenville',
         lokasi: 'Bukit Bougenville, Singkawang',
-        aktivitas: 'Hiking ringan pagi hari, nikmati pemandangan kota dari puncak',
-        kejutan: 'Bawa bekal piknik sederhana untuk sarapan di atas bukit',
-        tips: 'Mulai pagi jam 6-7, bawa air minum yang cukup',
+        aktivitas: 'Hiking ringan pagi hari, nikmati pemandangan kota dari puncak bukit.',
+        kejutan: 'Bawa bekal piknik sederhana untuk sarapan bersama di atas bukit.',
+        tips: 'Mulai pagi jam 6–7, bawa air minum yang cukup dan alas kaki yang nyaman.',
         prop: '🧺 Bekal sarapan + 💧 Air minum + 📸 Kamera'
       }
     },
     sedang: {
-    Pontianak: {
-      name: 'Coffee & Sunset Escape',
-      lokasi: 'Cafe outdoor Pontianak',
-      aktivitas: 'Ngopi santai lalu jalan malam menikmati suasana kota.',
-      kejutan: 'Bawakan snack favoritnya diam-diam.',
-      tips: 'Cari café outdoor dengan live music.',
-      prop: '☕ Café vibes + 🎶 Musik + 🌆 City lights'
-    },
+      Pontianak: {
+        name: 'Coffee & Sunset Escape',
+        lokasi: 'Café outdoor dengan live music, Pontianak',
+        aktivitas: 'Ngopi santai di café outdoor lalu jalan malam menikmati suasana kota bersama.',
+        kejutan: 'Bawakan snack favoritnya diam-diam untuk dinikmati selama perjalanan.',
+        tips: 'Cari café outdoor dengan live music acoustic untuk suasana lebih romantis.',
+        prop: '☕ Café vibes + 🎶 Musik live + 🌆 City lights'
       },
       Singkawang: {
-        name: 'Beach Day di Pasir Panjang',
+        name: 'Beach Day di Pantai Pasir Panjang',
         lokasi: 'Pantai Pasir Panjang, Singkawang Barat',
-        aktivitas: 'Seharian di pantai: main pasir, renang, nikmati sunset',
-        kejutan: 'Buat sandcastle bersama dan tulis nama kalian',
-        tips: 'Bawa sunscreen, baju ganti, dan snack untuk seharian',
-        prop: '☀️ Perlengkapan pantai + 🏖️ Karpet tikar'
+        aktivitas: 'Seharian di pantai: main pasir, renang, nikmati sunset bersama.',
+        kejutan: 'Buat sandcastle bersama dan tulis nama kalian di pasir sebagai kenangan.',
+        tips: 'Bawa sunscreen, baju ganti, dan snack untuk perbekalan seharian di pantai.',
+        prop: '☀️ Perlengkapan pantai + 🏖️ Karpet tikar + 🥤 Minuman segar'
       }
     },
     premium: {
-     Pontianak: {
-      name: 'Romantic Glamping Night',
-      lokasi: 'Area glamping sekitar Pontianak',
-      aktivitas: 'Staycation alam dengan suasana private dan romantis.',
-      kejutan: 'Dekorasi tenda dengan fairy lights.',
-      tips: 'Booking tempat dengan view terbaik.',
-      prop: '⛺ Glamping + ✨ Fairy lights + 🌹 Surprise setup'
-    },
+      Pontianak: {
+        name: 'Romantic Glamping Night',
+        lokasi: 'Area glamping sekitar Pontianak / Kubu Raya',
+        aktivitas: 'Staycation alam dengan suasana private dan romantis di tenda glamping.',
+        kejutan: 'Dekorasi tenda dengan fairy lights dan petals sebelum dia datang.',
+        tips: 'Booking tempat dengan view terbaik, minta paket couple jika tersedia.',
+        prop: '⛺ Glamping tent + ✨ Fairy lights + 🌹 Surprise setup'
+      },
       Singkawang: {
-        name: 'Private Sunset Sailing di Pantai Singkawang',
+        name: 'Private Sunset Sailing di Singkawang',
         lokasi: 'Pantai Pasir Panjang / Pantai Tanjung Bajau, Singkawang',
-        aktivitas: 'Sewa perahu sailing private untuk menikmati sunset di laut',
-        kejutan: 'Siapkan champagne/sparkling drink untuk toast di atas kapal',
-        tips: 'Book private, bawa jaket karena angin laut bisa kencang',
-        prop: '🥂 Sparkling drink + 🌺 Bunga + 📸 Fotografer'
+        aktivitas: 'Sewa perahu sailing private untuk menikmati sunset spektakuler di tengah laut.',
+        kejutan: 'Siapkan sparkling drink untuk toast romantis di atas kapal bersama.',
+        tips: 'Book private jauh hari, bawa jaket tipis karena angin laut bisa kencang.',
+        prop: '🥂 Sparkling drink + 🌺 Bunga + 📸 Fotografer di darat'
       }
     }
   },
+
   seni: {
     hemat: {
       Pontianak: {
         name: 'DIY Art Date di Rumah',
         lokasi: 'Rumah / kost masing-masing',
-        aktivitas: 'Beli cat akrilik murah, lukis wajah satu sama lain',
-        kejutan: 'Frame lukisannya sebagai kenangan date kalian',
-        tips: 'Siapkan plastik alas, musik jazz santai, dan snack',
+        aktivitas: 'Beli cat akrilik murah, lukis potret wajah satu sama lain sambil tertawa.',
+        kejutan: 'Frame lukisannya sebagai kenangan abadi dari date kalian.',
+        tips: 'Siapkan plastik alas, musik jazz santai, dan snack ringan agar suasana nyaman.',
         prop: '🎨 Cat akrilik + 🖌️ Kuas + 🖼️ Kanvas kecil'
       },
       Singkawang: {
         name: 'Sketching di Sudut Kota Tua Singkawang',
         lokasi: 'Kawasan pecinan / Jalan Niaga, Singkawang',
-        aktivitas: 'Bawa buku sketsa, gambar arsitektur tua sambil ngobrol santai',
-        kejutan: 'Gambar potret dia diam-diam dan kasih saat pulang',
-        tips: 'Pilih waktu pagi agar suasana tenang dan cahaya bagus',
-        prop: '✏️ Buku sketsa + ☕ Kopi takeaway'
+        aktivitas: 'Bawa buku sketsa, gambar arsitektur tua sambil ngobrol santai berdua.',
+        kejutan: 'Gambar potret dia diam-diam dan kasih saat pulang sebagai hadiah.',
+        tips: 'Pilih waktu pagi agar suasana tenang dan cahaya bagus untuk sketsa.',
+        prop: '✏️ Buku sketsa + ☕ Kopi takeaway + 🎨 Pensil warna'
       }
     },
     sedang: {
       Pontianak: {
-        name: 'Workshop Pottery atau Kerajinan Bersama',
+        name: 'Workshop Kerajinan Bersama',
         lokasi: 'Studio kerajinan / komunitas seni Pontianak',
-        aktivitas: 'Ikut workshop membuat keramik atau kerajinan tangan berdua',
-        kejutan: 'Buat karya yang bertema "kita berdua" sebagai kenangan',
-        tips: 'Cari info workshop seni lokal via IG atau komunitas Pontianak',
-        prop: '🏺 Workshop fee + 📸 Dokumentasi proses'
+        aktivitas: 'Ikut workshop membuat keramik atau kerajinan tangan berdua dari awal.',
+        kejutan: 'Buat karya bertema "kita berdua" sebagai kenangan date yang unik.',
+        tips: 'Cari info workshop seni lokal via IG atau komunitas kreatif Pontianak.',
+        prop: '🏺 Workshop fee + 📸 Dokumentasi proses + 🎁 Karya dibawa pulang'
       },
       Singkawang: {
         name: 'Art Café & Gallery Date',
         lokasi: 'Galeri seni lokal / café dengan nuansa artistik, Singkawang',
-        aktivitas: 'Kunjungi galeri seni, diskusi tentang karya, lanjut ngobrol di café',
-        kejutan: 'Beli satu karya seni kecil sebagai kenangan pergi bersama',
-        tips: 'Cari event pameran seni lokal yang sedang berlangsung',
-        prop: '🖼️ Budget beli karya + ☕ Budget café'
+        aktivitas: 'Kunjungi galeri seni, diskusi tentang karya, lanjut ngobrol panjang di café.',
+        kejutan: 'Beli satu karya seni kecil sebagai kenangan spesial pergi bersama.',
+        tips: 'Cari event pameran seni lokal yang sedang berlangsung untuk pengalaman lebih.',
+        prop: '🖼️ Budget beli karya + ☕ Budget café + 🎨 Katalog pameran'
       }
     },
     premium: {
       Pontianak: {
         name: 'Private Art Class Berdua',
         lokasi: 'Studio seni privat, Pontianak',
-        aktivitas: 'Sesi private art class berdua dipandu instruktur profesional',
-        kejutan: 'Pesan bingkai custom untuk karya yang kalian buat bersama',
-        tips: 'Cari instruktur seni lokal yang bisa buat sesi private',
-        prop: '🎨 Perlengkapan premium + 🖼️ Bingkai custom'
+        aktivitas: 'Sesi private art class berdua dipandu instruktur profesional dengan teknik khusus.',
+        kejutan: 'Pesan bingkai custom untuk karya yang kalian buat bersama hari ini.',
+        tips: 'Cari instruktur seni lokal yang bisa buat sesi private khusus couple.',
+        prop: '🎨 Perlengkapan premium + 🖼️ Bingkai custom + 🥂 Celebrasi setelahnya'
       },
       Singkawang: {
-        name: 'Batik atau Tenun Workshop Eksklusif',
+        name: 'Batik Workshop Eksklusif',
         lokasi: 'Pengrajin batik/tenun lokal, Singkawang',
-        aktivitas: 'Belajar membuat batik khas Kalimantan dari pengrajin langsung',
-        kejutan: 'Buat motif yang terinspirasi dari nama/inisial kalian berdua',
-        tips: 'Hubungi pengrajin lokal untuk booking sesi private',
-        prop: '🧵 Workshop fee + 🎁 Hasil karya dibawa pulang'
+        aktivitas: 'Belajar membuat batik khas Kalimantan langsung dari pengrajin berpengalaman.',
+        kejutan: 'Buat motif yang terinspirasi dari inisial atau nama kalian berdua.',
+        tips: 'Hubungi pengrajin lokal jauh hari untuk booking sesi private couple.',
+        prop: '🧵 Workshop fee + 🎁 Hasil karya dibawa pulang + 📸 Dokumentasi'
       }
     }
   },
+
   gaming: {
     hemat: {
       Pontianak: {
         name: 'Gaming Night Seru Berdua',
         lokasi: 'Rumah / warnet gaming, Pontianak',
-        aktivitas: 'Game marathon: mulai dari board game, lanjut mobile game bersama',
-        kejutan: 'Siapkan hadiah kecil untuk yang menang setiap game',
-        tips: 'Pilih game kooperatif juga, bukan cuma kompetitif',
-        prop: '🎮 Board game + 🍕 Snack + 🏆 Hadiah kecil'
+        aktivitas: 'Game marathon: mulai dari board game seru, lanjut mobile game bersama.',
+        kejutan: 'Siapkan hadiah kecil lucu untuk yang menang di setiap game.',
+        tips: 'Pilih mix game kooperatif dan kompetitif agar suasana lebih bervariasi.',
+        prop: '🎮 Board game + 🍕 Pizza / snack + 🏆 Hadiah kecil lucu'
       },
       Singkawang: {
-        name: 'Café Gaming + Board Game Night',
+        name: 'Café Gaming & Board Game Night',
         lokasi: 'Board game café / café dengan koleksi game, Singkawang',
-        aktivitas: 'Main berbagai board game sambil ngemil dan ngobrol',
-        kejutan: 'Buat "couple achievement" — siapa yang sering menang',
-        tips: 'Pilih mix game: strategis dan game lucu/party game',
-        prop: '🎲 Board game fee + ☕ Budget minuman'
+        aktivitas: 'Main berbagai board game sambil ngemil dan ngobrol santai berdua.',
+        kejutan: 'Buat "couple achievement list" — catat siapa yang sering menang.',
+        tips: 'Pilih mix game: strategis dan party game agar suasana tetap ceria.',
+        prop: '🎲 Board game fee + ☕ Budget minuman + 📋 Achievement list'
       }
     },
     sedang: {
       Pontianak: {
         name: 'Arcade & Dinner Date',
-        lokasi: 'Zona arcade di mall Pontianak + restoran',
-        aktivitas: 'Sore di arcade bermain berdua, malam dinner santai',
-        kejutan: 'Tukarkan tiket arcade untuk dapat hadiah kecil untuknya',
-        tips: 'Budget arcade dulu, sisihkan cukup untuk dinner nyaman',
-        prop: '🕹️ Budget arcade + 🍽️ Budget dinner'
+        lokasi: 'Zona arcade di mall Pontianak + restoran favorit',
+        aktivitas: 'Sore seru di arcade bermain berdua, malam dinner santai yang nyaman.',
+        kejutan: 'Tukarkan tiket arcade untuk dapat hadiah kecil yang bisa diberikan ke dia.',
+        tips: 'Atur budget arcade dulu, sisihkan cukup untuk dinner yang nyaman.',
+        prop: '🕹️ Budget arcade + 🍽️ Budget dinner + 🎟️ Tukar hadiah'
       },
       Singkawang: {
         name: 'Mini Golf & Kuliner Date',
         lokasi: 'Tempat rekreasi / mini golf sekitar Singkawang',
-        aktivitas: 'Main mini golf berdua, yang kalah traktir makan',
-        kejutan: 'Buat "taruhan romantis" — kalah harus nyanyikan lagu',
-        tips: 'Cek lokasi hiburan keluarga yang ada mini golf di area Singkawang',
-        prop: '⛳ Tiket mini golf + 🍜 Budget makan'
+        aktivitas: 'Main mini golf berdua dengan taruhan: yang kalah wajib traktir makan.',
+        kejutan: 'Buat "taruhan romantis" — kalah harus nyanyikan lagu untuknya.',
+        tips: 'Cek lokasi hiburan keluarga yang ada mini golf di area Singkawang terlebih dulu.',
+        prop: '⛳ Tiket mini golf + 🍜 Budget makan + 🎶 Taruhan seru'
       }
     },
     premium: {
       Pontianak: {
         name: 'VR Experience Date',
         lokasi: 'VR café / experience center, Pontianak',
-        aktivitas: 'Coba berbagai pengalaman VR berdua, dari adventure hingga romantis',
-        kejutan: 'Buat "virtual trip" ke tempat impian kalian bersama',
-        tips: 'Booking slot khusus agar punya waktu cukup',
-        prop: '🥽 VR experience fee + 🍔 Dinner setelahnya'
+        aktivitas: 'Coba berbagai pengalaman VR berdua, dari adventure seru hingga nuansa romantis.',
+        kejutan: 'Buat "virtual trip" ke tempat impian kalian bersama dalam dunia VR.',
+        tips: 'Booking slot khusus agar punya waktu yang cukup tanpa terburu-buru.',
+        prop: '🥽 VR experience fee + 🍔 Dinner premium setelahnya'
       },
       Singkawang: {
         name: 'Private Escape Room Date',
         lokasi: 'Escape room, Singkawang / Pontianak',
-        aktivitas: 'Booking private room untuk berdua, pecahkan misteri bersama',
-        kejutan: 'Titip pesan ke pengelola untuk dimasukkan dalam cerita game',
-        tips: 'Pilih tema yang seru, komunikasi adalah kuncinya',
-        prop: '🔐 Escape room booking + 🎉 Celebrasi setelah berhasil'
+        aktivitas: 'Booking private room untuk berdua, pecahkan misteri seru bersama.',
+        kejutan: 'Titip pesan romantis ke pengelola untuk dimasukkan sebagai clue dalam game.',
+        tips: 'Pilih tema yang seru, komunikasi adalah kunci utama untuk berhasil.',
+        prop: '🔐 Escape room booking + 🎉 Celebrasi makan malam setelah berhasil'
       }
     }
   },
+
   romantis: {
     hemat: {
       Pontianak: {
         name: 'Piknik Senja di Tepi Kapuas',
         lokasi: 'Tepian Sungai Kapuas / Taman Alun-Alun, Pontianak',
-        aktivitas: 'Piknik sore hari sambil menonton sunset bersama',
-        kejutan: 'Siapkan note kecil tersembunyi di dalam basket piknik',
-        tips: 'Bawa tikar cantik, snack favorit dia, dan lagu romantis',
-        prop: '🧺 Basket piknik + 🕯️ Lilin + 💌 Surat cinta'
+        aktivitas: 'Piknik sore hari sambil menonton sunset di tepian Sungai Kapuas yang ikonik.',
+        kejutan: 'Siapkan note cinta tersembunyi di dalam basket piknik untuk ditemukannya.',
+        tips: 'Bawa tikar cantik, snack favorit dia, dan playlist lagu romantis.',
+        prop: '🧺 Basket piknik + 🕯️ Lilin kecil + 💌 Surat cinta tersembunyi'
       },
       Singkawang: {
         name: 'Sunset Romantis di Pantai Pasir Panjang',
         lokasi: 'Pantai Pasir Panjang, Singkawang',
-        aktivitas: 'Duduk berdua sambil nonton sunset, kaki di pasir',
-        kejutan: 'Tulis kata-kata manis di pasir sebelum dia datang',
-        tips: 'Datang 1 jam sebelum sunset untuk dapat spot terbaik',
+        aktivitas: 'Duduk berdua sambil nonton sunset, kaki di pasir, tanpa terburu-buru.',
+        kejutan: 'Tulis kata-kata manis di pasir sebelum dia datang sebagai sambutan.',
+        tips: 'Datang 1 jam sebelum sunset untuk dapat spot terbaik yang tidak keramaian.',
         prop: '🌅 Momen alam + ☕ Minuman hangat + 📸 Foto berdua'
       }
     },
     sedang: {
       Pontianak: {
-        name: 'Dinner Candle Light di Teras Rumah',
+        name: 'Candlelight Dinner Setup di Rumah',
         lokasi: 'Teras rumah / rooftop, Pontianak',
-        aktivitas: 'Setup dinner romantis dengan lilin, bunga, dan masak bersama',
-        kejutan: 'Masak menu spesial favoritnya, hias meja dengan petals',
-        tips: 'Siapkan playlist lagu romantis, matikan HP selama dinner',
-        prop: '🕯️ 20 lilin + 🌹 Bunga + 🍷 Sparkling juice'
+        aktivitas: 'Setup dinner romantis dengan lilin, bunga, dan masak bersama dari awal.',
+        kejutan: 'Masak menu spesial favoritnya, hias meja dengan rose petals.',
+        tips: 'Siapkan playlist lagu romantis, matikan HP selama dinner berlangsung.',
+        prop: '🕯️ 20 lilin + 🌹 Bunga segar + 🍷 Sparkling juice'
       },
       Singkawang: {
         name: 'Couple Spa & Relax Day',
         lokasi: 'Spa / reflexi terbaik di Singkawang',
-        aktivitas: 'Couple spa treatment, relax bersama, lunch setelahnya',
-        kejutan: 'Booking paket couple dan minta aroma terapi favoritnya',
-        tips: 'Pilih waktu weekday untuk suasana lebih tenang',
-        prop: '💆 Spa booking + 🌸 Aromaterapi + 🍵 Tea setelahnya'
+        aktivitas: 'Couple spa treatment, relax total bersama, lunch atau dinner setelahnya.',
+        kejutan: 'Booking paket couple dan minta aroma terapi favorit pasangan.',
+        tips: 'Pilih waktu weekday untuk suasana lebih tenang dan tidak antri.',
+        prop: '💆 Spa booking + 🌸 Aromaterapi + 🍵 Teh herbal setelahnya'
       }
     },
     premium: {
       Pontianak: {
         name: 'One Night Romantic Staycation',
-        lokasi: 'Hotel bintang di tepi sungai, Pontianak',
-        aktivitas: 'Staycation semalam dengan dekorasi kamar penuh bunga dan lilin',
-        kejutan: 'Minta housekeeping setup dekorasi sebelum check-in',
-        tips: 'Pilih kamar dengan view terbaik, siapkan breakfast romantis',
-        prop: '🏨 Hotel room + 🌹 Rose petals + 🎁 Hadiah spesial'
+        lokasi: 'Hotel bintang tepi sungai / kota, Pontianak',
+        aktivitas: 'Staycation semalam dengan dekorasi kamar penuh bunga, lilin, dan intimate dinner.',
+        kejutan: 'Minta housekeeping setup dekorasi rose petals sebelum kalian check-in.',
+        tips: 'Pilih kamar dengan view terbaik (river view / city view), siapkan breakfast romantis.',
+        prop: '🏨 Hotel room + 🌹 Rose petals + 🎁 Hadiah spesial bermakna'
       },
       Singkawang: {
         name: 'Romantic Getaway di Resort Singkawang',
         lokasi: 'Resort / villa terbaik di Singkawang',
-        aktivitas: 'Staycation romantis dengan akses beach dan fasilitas premium',
-        kejutan: 'Buat photo book kenangan kalian sebagai hadiah di sana',
-        tips: 'Book villa dengan private pool atau akses pantai langsung',
-        prop: '🏖️ Resort booking + 📘 Photo album + 🥂 Celebrate'
+        aktivitas: 'Staycation romantis dengan akses beach, fasilitas premium, dan dinner privat.',
+        kejutan: 'Buat photo book kenangan kalian dan bawa sebagai hadiah di sana.',
+        tips: 'Book villa dengan private pool atau akses pantai langsung untuk pengalaman terbaik.',
+        prop: '🏖️ Resort booking + 📘 Photo album + 🥂 Celebrate bersama'
       }
     }
   }
 };
 
-// Template pesan berdasarkan occasion
+/* Helper: ambil ide dengan fallback ke Pontianak jika kombinasi tidak tersedia */
+function getIdea(hobby, budget, domisili) {
+  const h = dateIdeas[hobby];
+  if (!h) return null;
+  const b = h[budget];
+  if (!b) return null;
+  /* Coba kota yang diminta dulu, fallback ke Pontianak jika belum ada */
+  return b[domisili] || b['Pontianak'] || null;
+}
+
 const occasionMessages = {
-  'Casual Date': {prefix: 'Date santai tapi penuh makna', emoji: '🌸'},
-  'Anniversary': {prefix: 'Rayakan cinta kalian yang spesial', emoji: '💍'},
-  'Valentine': {prefix: 'Momen Valentine yang tak terlupakan', emoji: '💝'},
-  'Birthday Surprise': {prefix: 'Kejutan ulang tahun yang bikin dia menangis bahagia', emoji: '🎂'},
-  'Rekonsiliasi': {prefix: 'Rekonsiliasi dengan gesture yang tulus', emoji: '🕊️'},
+  'Casual Date':       { prefix: 'Date santai tapi penuh makna',                  emoji: '🌸' },
+  'Anniversary':       { prefix: 'Rayakan cinta kalian yang spesial',              emoji: '💍' },
+  'Valentine':         { prefix: 'Momen Valentine yang tak terlupakan',            emoji: '💝' },
+  'Birthday Surprise': { prefix: 'Kejutan ulang tahun yang bikin dia menangis bahagia', emoji: '🎂' },
+  'Rekonsiliasi':      { prefix: 'Rekonsiliasi dengan gesture yang tulus',         emoji: '🕊️' }
 };
 
 const personalityTips = {
-  ekstrovert: 'Dia suka energi dan pengalaman baru! Pilih aktivitas dengan sedikit surprises.',
-  introvert: 'Dia lebih nyaman di suasana tenang dan intim. Hindari tempat terlalu ramai.',
-  romantis: 'Sentuhan romantis kecil akan sangat berarti. Perhatikan detail.',
-  santai: 'Jangan terlalu over-planned. Spontanitas justru yang dia suka.',
+  ekstrovert: 'Dia suka energi dan pengalaman baru! Pilih aktivitas dengan sedikit kejutan di tengah-tengah acara.',
+  introvert:  'Dia lebih nyaman di suasana tenang dan intim. Hindari tempat terlalu ramai, prioritaskan berdua saja.',
+  romantis:   'Sentuhan romantis kecil akan sangat berarti untuknya. Perhatikan setiap detail kecil.',
+  santai:     'Jangan terlalu over-planned. Spontanitas dan fleksibilitas justru yang dia suka.'
 };
 
 const durationTips = {
-  baru: 'Kalian masih di fase discovery — pilih aktivitas yang bisa bikin kalian lebih saling mengenal.',
-  menengah: 'Kalian sudah saling mengenal. Saatnya ciptakan kenangan baru yang lebih dalam.',
-  lama: 'Kalian sudah sangat dekat. Surprise sederhana tapi penuh makna akan jauh lebih berkesan.',
-  menikah: 'Rekindling romance itu penting. Buat momen seolah-olah kencan pertama lagi.',
+  baru:      'Kalian masih di fase discovery — pilih aktivitas yang bisa bikin kalian lebih saling mengenal satu sama lain.',
+  menengah:  'Kalian sudah saling mengenal. Saatnya ciptakan kenangan baru yang lebih dalam dan berkesan.',
+  lama:      'Kalian sudah sangat dekat. Surprise sederhana tapi penuh makna akan jauh lebih berkesan dari yang mewah.',
+  menikah:   'Rekindling romance itu penting. Buat momen seolah-olah ini adalah kencan pertama kalian lagi.'
 };
 
+const budgetLabel = { hemat: 'Di bawah 100k', sedang: '100k–300k', premium: 'Di atas 300k' };
+
 function generateAI() {
-  const name = document.getElementById('name').value.trim();
-  const partner = document.getElementById('partner').value.trim();
-  const domisili = document.getElementById('domisili').value;
-  const occasion = document.getElementById('occasion').value;
-  const hobby = document.getElementById('hobby').value;
-  const budget = document.getElementById('budget').value;
+  const name        = document.getElementById('name').value.trim();
+  const partner     = document.getElementById('partner').value.trim();
+  const domisili    = document.getElementById('domisili').value;
+  const occasion    = document.getElementById('occasion').value;
+  const hobby       = document.getElementById('hobby').value;
+  const budget      = document.getElementById('budget').value;
   const personality = document.getElementById('personality').value;
-  const duration = document.getElementById('duration').value;
+  const duration    = document.getElementById('duration').value;
 
-  if (!name || !partner) { alert('Isi nama kamu dan pasangan dulu ya! 💕'); return; }
+  if (!name || !partner) {
+    alert('Isi nama kamu dan pasangan dulu ya! 💕');
+    return;
+  }
 
-  const btn = document.getElementById('aiBtn');
-  const resultBox = document.getElementById('aiResult');
-  const contentEl = document.getElementById('aiResultContent');
-  const waBtn = document.getElementById('waBtn');
-  const coupleName = document.getElementById('resultCoupleName');
+  const btn         = document.getElementById('aiBtn');
+  const resultBox   = document.getElementById('aiResult');
+  const contentEl   = document.getElementById('aiResultContent');
+  const waBtn       = document.getElementById('waBtn');
+  const coupleName  = document.getElementById('resultCoupleName');
 
   btn.disabled = true;
   btn.innerHTML = '<span>⏳ AI sedang merancang...</span>';
   resultBox.classList.add('show');
   waBtn.style.display = 'none';
-  coupleName.textContent = `${name} & ${partner}`;
+  coupleName.textContent = name + ' & ' + partner;
 
-  // Simulate "thinking" delay for better UX
-  contentEl.innerHTML = `<div style="display:flex;align-items:center;gap:12px;color:rgba(255,255,255,0.7);font-size:14px;">
-    <span>Merancang momen special untuk ${name} & ${partner}</span>
-    <div style="display:flex;gap:4px;">${[0,200,400].map(d=>`<span style="width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.5);display:inline-block;animation:bounce 1.2s ${d}ms infinite;"></span>`).join('')}</div>
-  </div>
-  <style>@keyframes bounce{0%,80%,100%{transform:scale(0.8);opacity:0.5;}40%{transform:scale(1.2);opacity:1;}}</style>`;
+  contentEl.innerHTML = `
+    <div style="display:flex;align-items:center;gap:12px;color:rgba(255,255,255,0.7);font-size:14px;">
+      <span>Merancang momen spesial untuk ${name} & ${partner}...</span>
+      <div style="display:flex;gap:4px;">
+        ${[0,200,400].map(d => `<span style="width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.5);display:inline-block;animation:bounce 1.2s ${d}ms infinite;"></span>`).join('')}
+      </div>
+    </div>
+    <style>@keyframes bounce{0%,80%,100%{transform:scale(0.8);opacity:0.5;}40%{transform:scale(1.2);opacity:1;}}</style>`;
 
   setTimeout(() => {
-    // Get the date idea
-    const idea = dateIdeas[hobby]?.[budget]?.[domisili];
+    const idea = getIdea(hobby, budget, domisili);
+
     if (!idea) {
-      contentEl.innerHTML = `<div style="color:rgba(255,255,255,0.85);font-size:15px;">Ide spesial sedang kami siapkan! Chat tim kami untuk rencana personal.</div>`;
-      btn.disabled = false; btn.innerHTML = '<span>✦ Generate Lagi</span>';
+      contentEl.innerHTML = `<div style="color:rgba(255,255,255,0.85);font-size:15px;">Ide spesial sedang kami siapkan! Chat tim kami untuk rencana yang benar-benar personal.</div>`;
       const msg = `Halo Couple Goals! Saya ${name} ingin konsultasi date untuk ${occasion} bersama ${partner} di ${domisili}.`;
       waBtn.href = `https://wa.me/6289524070718?text=${encodeURIComponent(msg)}`;
       waBtn.style.display = 'inline-flex';
+      btn.disabled = false;
+      btn.innerHTML = '<span>✦ Generate Lagi</span>';
       return;
     }
 
-    const occ = occasionMessages[occasion] || {prefix:'Date yang berkesan',emoji:'✨'};
+    const occ  = occasionMessages[occasion] || { prefix: 'Date yang berkesan', emoji: '✨' };
     const pTip = personalityTips[personality] || '';
     const dTip = durationTips[duration] || '';
+
+    const personalityLabel = {
+      ekstrovert: 'energik & suka hal baru',
+      introvert:  'introvert & suka suasana intim',
+      romantis:   'romantis & sensitif',
+      santai:     'santai & chill'
+    }[personality] || personality;
+
+    const durationLabel = {
+      baru:      'baru jadian',
+      menengah:  'sudah 1–3 tahun bersama',
+      lama:      'sudah 3+ tahun bersama',
+      menikah:   'sudah menikah'
+    }[duration] || duration;
 
     const html = `
       <div class="plan-card">
@@ -982,39 +1078,32 @@ function generateAI() {
         <div class="plan-card-body">
           <span class="plan-tag">📍 ${domisili}</span>
           <span class="plan-tag">${occasion}</span>
-          <span class="plan-tag">💰 ${budget === 'hemat' ? 'Under 100k' : budget === 'sedang' ? '100k-300k' : '300k+'}</span>
+          <span class="plan-tag">💰 ${budgetLabel[budget]}</span>
           <br><br>
-          <strong style="color:white;">📍 Lokasi:</strong><br>
-          ${idea.lokasi}<br><br>
-          <strong style="color:white;">🎯 Aktivitas:</strong><br>
-          ${idea.aktivitas}<br><br>
-          <strong style="color:white;">🎁 Kejutan Spesial untuk ${partner}:</strong><br>
-          ${idea.kejutan}
+          <strong style="color:white;">📍 Lokasi:</strong><br>${idea.lokasi}<br><br>
+          <strong style="color:white;">🎯 Aktivitas:</strong><br>${idea.aktivitas}<br><br>
+          <strong style="color:white;">🎁 Kejutan Spesial untuk ${partner}:</strong><br>${idea.kejutan}
         </div>
       </div>
       <div class="plan-card">
         <div class="plan-card-header">
           <span class="plan-card-icon">💡</span>
-          <span class="plan-card-title">Tips Personal untuk Kamu</span>
+          <span class="plan-card-title">Tips Personal untuk ${name}</span>
         </div>
         <div class="plan-card-body">
-          <strong style="color:white;">✨ Tips Eksekusi:</strong><br>
-          ${idea.tips}<br><br>
-          <strong style="color:white;">🛍️ Persiapkan:</strong><br>
-          ${idea.prop}<br><br>
-          <strong style="color:white;">💬 Karena ${partner} ${personality === 'ekstrovert' ? 'energik & suka hal baru' : personality === 'introvert' ? 'introvert & suka suasana intim' : personality === 'romantis' ? 'romantis & sensitif' : 'santai & chill'}:</strong><br>
-          ${pTip}<br><br>
-          <strong style="color:white;">🗓️ Karena kalian ${duration === 'baru' ? 'baru jadian' : duration === 'menengah' ? 'sudah 1-3 tahun bersama' : duration === 'lama' ? 'sudah 3+ tahun bersama' : 'sudah menikah'}:</strong><br>
-          ${dTip}
+          <strong style="color:white;">✨ Tips Eksekusi:</strong><br>${idea.tips}<br><br>
+          <strong style="color:white;">🛍️ Yang Perlu Disiapkan:</strong><br>${idea.prop}<br><br>
+          <strong style="color:white;">💬 Karena ${partner} ${personalityLabel}:</strong><br>${pTip}<br><br>
+          <strong style="color:white;">🗓️ Karena kalian ${durationLabel}:</strong><br>${dTip}
         </div>
       </div>
       <div style="background:rgba(255,255,255,0.05);border-radius:10px;padding:14px;border-left:3px solid rgba(255,255,255,0.3);color:rgba(255,255,255,0.75);font-size:13px;line-height:1.6;">
-        ✨ <em>Ini adalah preview ide dari AI kami. Untuk rencana DETAIL lengkap — lokasi spesifik, timeline menit per menit, daftar belanja, script kejutan, dan bantuan eksekusi — chat tim Couple Goals via WhatsApp. Konsultasi GRATIS! 💖</em>
+        ✨ <em>Ini adalah preview ide dari AI kami. Untuk rencana DETAIL lengkap — lokasi spesifik, timeline menit per menit, daftar belanja, script kejutan, dan bantuan eksekusi penuh — chat tim Couple Goals via WhatsApp. Konsultasi GRATIS! 💖</em>
       </div>`;
 
     contentEl.innerHTML = html;
 
-    const waMsg = `Halo Couple Goals! 💖\n\nSaya ${name}, ingin konsultasi lebih lanjut untuk:\n👥 Pasangan: ${partner}\n📍 Kota: ${domisili}\n💝 Occasion: ${occasion}\n🎯 Hobi: ${hobby}\n💰 Budget: ${budget}\n\nAI sudah kasih preview idenya, saya butuh bantuan eksekusi detail! 🙏`;
+    const waMsg = `Halo Couple Goals! 💖\n\nSaya ${name}, ingin konsultasi lebih lanjut untuk:\n👥 Pasangan: ${partner}\n📍 Kota: ${domisili}\n💝 Occasion: ${occasion}\n🎯 Hobi: ${hobby}\n💰 Budget: ${budgetLabel[budget]}\n\nAI sudah kasih preview idenya (${idea.name}), saya butuh bantuan eksekusi detail! 🙏`;
     waBtn.href = `https://wa.me/6289524070718?text=${encodeURIComponent(waMsg)}`;
     waBtn.style.display = 'inline-flex';
 
@@ -1025,15 +1114,35 @@ function generateAI() {
 }
 
 /* ===== FAQ ===== */
-function toggleFaq(el){
-  const item=el.parentElement,ans=item.querySelector('.faq-a'),isOpen=item.classList.contains('open');
-  document.querySelectorAll('.faq-item.open').forEach(i=>{i.classList.remove('open');i.querySelector('.faq-a').style.maxHeight='0';});
-  if(!isOpen){item.classList.add('open');ans.style.maxHeight=ans.scrollHeight+'px';}
+function toggleFaq(el) {
+  const item = el.parentElement;
+  const ans = item.querySelector('.faq-a');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => {
+    i.classList.remove('open');
+    i.querySelector('.faq-a').style.maxHeight = '0';
+  });
+  if (!isOpen) {
+    item.classList.add('open');
+    ans.style.maxHeight = ans.scrollHeight + 'px';
+  }
 }
 
 /* ===== HELPERS ===== */
-function scrollToPlanner(){document.getElementById('ai-planner').scrollIntoView({behavior:'smooth'});}
-function openWA(msg){const url=/Android|iPhone/i.test(navigator.userAgent)?`https://wa.me/6289524070718?text=${encodeURIComponent(msg)}`:`https://web.whatsapp.com/send?phone=6289524070718&text=${encodeURIComponent(msg)}`;window.open(url,'_blank');}
+function scrollToPlanner() {
+  document.getElementById('ai-planner').scrollIntoView({ behavior: 'smooth' });
+}
+function openWA(msg) {
+  const url = /Android|iPhone/i.test(navigator.userAgent)
+    ? `https://wa.me/6289524070718?text=${encodeURIComponent(msg)}`
+    : `https://web.whatsapp.com/send?phone=6289524070718&text=${encodeURIComponent(msg)}`;
+  window.open(url, '_blank');
+}
+
+/* ===== INIT: render tab default setelah DOM siap ===== */
+document.addEventListener('DOMContentLoaded', () => {
+  showTab('date', document.querySelector('.tab-btn'));
+});
 </script>
 </body>
 </html>
