@@ -67,7 +67,6 @@ section{padding:100px 60px;}
 .section-label{font-size:12px;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:var(--rose-light);margin-bottom:14px;display:block;}
 .section-title{font-family:'Cormorant Garamond',serif;font-size:46px;font-weight:600;line-height:1.2;color:var(--text);margin-bottom:16px;}
 .section-sub{font-size:16px;color:var(--text-muted);line-height:1.7;max-width:520px;font-weight:300;}
-.how-it-works{background:var(--white);}
 .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:32px;margin-top:60px;}
 .step{position:relative;padding:32px;border-radius:var(--radius);background:var(--cream);border:0.5px solid var(--border);transition:all 0.3s;}
 .step:hover{transform:translateY(-6px);box-shadow:var(--shadow);border-color:rgba(155,32,64,0.25);}
@@ -217,7 +216,6 @@ footer{background:var(--rose-deep);color:white;padding:60px 60px 40px;}
     Couple <span>Goals</span>
   </a>
   <ul class="nav-links">
-    <li><a href="#how">How It Works</a></li>
     <li><a href="#experiences">Experiences</a></li>
     <li><a href="#pricing">Pricing</a></li>
     <li><a href="#faq">FAQ</a></li>
@@ -366,7 +364,7 @@ footer{background:var(--rose-deep);color:white;padding:60px 60px 40px;}
 <section class="emergency-section reveal">
   <span class="section-label">Date Night Darurat?</span>
   <h2 class="section-title">🚨 Date Rescue</h2>
-  <p class="section-sub">Kehabisan ide? Tenang, kami punya solusi romantis yang bisa langsung kalian lakukan.</p>
+  <p class="section-sub">Kehabisan ide? Kami punya solusinya.</p>
   <div class="sos-box">
     <div id="emergencyResult">Tekan tombol di bawah untuk mendapatkan ide penyelamat malam kalian ✨</div>
     <button class="sos-btn" onclick="saveDateNight()">❤️ Rescue Date </button>
@@ -503,7 +501,7 @@ document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 /* ===== EXPERIENCE TABS ===== */
 const expData = {
   date: [
-    { img: 'picnicdate.jpeg', tag: 'Outdoor', name: 'Picnic Date', desc: 'Sunset di tepi Sungai Kapuas dengan hamper romantis' },
+    { img: 'picnicdate.jpeg', tag: 'Outdoor', name: 'Picnic Date', desc: 'Gelar tikar, siapkan camilan, dan nikmati waktu berdua di taman' },
     { img: 'romanticdinner.jpeg', tag: 'Dining', name: 'Romantic Dinner', desc: 'Makan malam berdua dengan suasana penuh cahaya lilin' },
     { img: 'beachdate.jpeg', tag: 'Nature', name: 'Beach Date', desc: 'Berduaan di tepi pantai dengan angin semilir' },
     { img: 'paintdate.jpg', tag: 'Creative', name: 'Paint Date', desc: 'Lukis bersama di atas kanvas sambil menikmati waktu berkualitas' }
